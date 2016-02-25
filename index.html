@@ -17,8 +17,8 @@ body {
   fill: steelblue;
 }
 
-.axis path {
-  stroke-width: 2px;
+.axis path, .axis line {
+  stroke-width: 3px;
 }
 
 </style>
@@ -27,32 +27,37 @@ body {
 <script>
 
 var data = [];
-for (var i = 0; i < 12; i++) {
+var DATACOUNT = 12;
+for (var i = 0; i < DATACOUNT; i++) {
   data.push( {
-    color: i < 12/2,
-    letter: i,
-    frequency: Math.random() * 200
+    color: i > 12/2,
+    index: i,
+    frequency: d3.random.normal(400, 150)()
   });
 }
 
 var groupSpacing = 100;
 
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+var margin = {top: 5, right: 5, bottom: 5, left: 5},
+    width = 970 - margin.left - margin.right,
+    height = 810 - margin.top - margin.bottom;
 
 var formatPercent = d3.format(".0%");
 
-var xValue = function(d) { return d.letter; }, // data -> value
+var xValue = function(d) { return d.index; }, // data -> value
     xScale = d3.scale.ordinal().rangeRoundBands([0, width], .1), // value -> display
     xMap = function(d) { return xScale(xValue(d)); }, // data -> display
     xAxis = d3.svg.axis().scale(xScale).orient("bottom")
         .tickSize(0, 0)
         .tickValues([])
         .tickFormat(null);
+var xPadding = 0.1;
+var xCenterSpace = 0.1;
+var xSpacing = 0.1; // percent of bar width
+var xWidth = width * (1 - 2*xPadding - xCenterSpace) / DATACOUNT;
 
 var yValue = function(d) { return d.frequency; }, // data -> value
-    yScale = d3.scale.linear().domain([0,200]).range([height, 5]), // value -> display
+    yScale = d3.scale.linear().domain([0,800]).range([height, 5]), // value -> display
     yMap = function(d) { return yScale(yValue(d)); }, // data -> display
     yAxis = d3.svg.axis().scale(yScale).orient("left")
         .tickSize(0, 0)
@@ -65,35 +70,36 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-loadData = function(data) {
+function draw(data) {
   xScale.domain(data.map(xValue));
 
   svg.append("g")
       .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
+      .append("line")
+          .attr("x1", 0).attr("x2", width)
+          .attr("y1", height+1).attr("y2", height+1);
 
   svg.append("g")
       .attr("class", "y axis")
-      .call(yAxis)
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end");
+      .append("line")
+          .attr("x1", 0).attr("x2", 0)
+          .attr("y1", 0).attr("y2", height+3);
 
   svg.selectAll(".bar")
       .data(data)
     .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", xMap)
-      .attr("width", xScale.rangeBand)
+      .attr("x", function(d) { 
+          return (width * xPadding) + 
+                 (d.color ? width*xCenterSpace : 0) +
+                 (d.index * xWidth);})
+      .attr("width", xWidth * (1-xSpacing))
       .attr("y", yMap)
       .attr("height", function(d) { return height - yMap(d); })
-      .style("fill", function (d) { return d.color ? 'rgb(228, 26, 28)' : 'rgb(55, 126, 184)'; }) ;
+      .style("fill", function (d) { return d.color ? 'rgb(55, 126, 184)' : 'rgb(228, 26, 28)'; }) ;
 
 };
-loadData(data);
+draw(data);
 
 function type(d) {
   d.frequency = +d.frequency;
