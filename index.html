@@ -30,7 +30,7 @@ var data = [];
 var DATACOUNT = 12;
 for (var i = 0; i < DATACOUNT; i++) {
   data.push( {
-    color: i > 12/2,
+    color: i >= 12/2,
     index: i,
     frequency: d3.random.normal(400, 150)()
   });
@@ -44,25 +44,10 @@ var margin = {top: 5, right: 5, bottom: 5, left: 5},
 
 var formatPercent = d3.format(".0%");
 
-var xValue = function(d) { return d.index; }, // data -> value
-    xScale = d3.scale.ordinal().rangeRoundBands([0, width], .1), // value -> display
-    xMap = function(d) { return xScale(xValue(d)); }, // data -> display
-    xAxis = d3.svg.axis().scale(xScale).orient("bottom")
-        .tickSize(0, 0)
-        .tickValues([])
-        .tickFormat(null);
-var xPadding = 0.1;
+var xPadding = 0.05;
 var xCenterSpace = 0.1;
-var xSpacing = 0.1; // percent of bar width
+var xSpacing = 0.5; // percent of bar width
 var xWidth = width * (1 - 2*xPadding - xCenterSpace) / DATACOUNT;
-
-var yValue = function(d) { return d.frequency; }, // data -> value
-    yScale = d3.scale.linear().domain([0,800]).range([height, 5]), // value -> display
-    yMap = function(d) { return yScale(yValue(d)); }, // data -> display
-    yAxis = d3.svg.axis().scale(yScale).orient("left")
-        .tickSize(0, 0)
-        //.tickValues([])
-        .tickFormat(null);
 
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -71,8 +56,6 @@ var svg = d3.select("body").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 function draw(data) {
-  xScale.domain(data.map(xValue));
-
   svg.append("g")
       .attr("class", "x axis")
       .append("line")
@@ -90,12 +73,13 @@ function draw(data) {
     .enter().append("rect")
       .attr("class", "bar")
       .attr("x", function(d) { 
-          return (width * xPadding) + 
+          return (width * xPadding) + // left margin
+                 (xWidth * xPadding/2) + //spacing between bars
                  (d.color ? width*xCenterSpace : 0) +
                  (d.index * xWidth);})
       .attr("width", xWidth * (1-xSpacing))
-      .attr("y", yMap)
-      .attr("height", function(d) { return height - yMap(d); })
+      .attr("y", function(d) { return height - d.frequency; })
+      .attr("height", function(d) { return d.frequency; })
       .style("fill", function (d) { return d.color ? 'rgb(55, 126, 184)' : 'rgb(228, 26, 28)'; }) ;
 
 };
