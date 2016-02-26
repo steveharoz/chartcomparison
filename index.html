@@ -30,7 +30,7 @@ var data = [];
 var DATACOUNT = 12;
 for (var i = 0; i < DATACOUNT; i++) {
   data.push( {
-    color: i >= 12/2,
+    color: i >= DATACOUNT/2,
     index: i,
     frequency: d3.random.normal(200, 120)()
   });
@@ -46,7 +46,7 @@ var formatPercent = d3.format(".0%");
 
 var xPadding = 0.05;
 var xCenterSpace = 0.1;
-var xSpacing = 0.5; // percent of bar width
+var xSpacing = 34/64; // percent of bar width
 var xWidth = width * (1 - 2*xPadding - xCenterSpace) / DATACOUNT;
 
 var svg = d3.select("body").append("svg")
@@ -75,7 +75,7 @@ function draw(data) {
       .attr("x", function(d) { 
           return (width * xPadding) + // left margin
                  (xWidth * xSpacing/2) + //spacing between bars
-                 (d.color ? width*xCenterSpace : 0) +
+                 (d.index >= DATACOUNT/2 ? width*xCenterSpace : 0) +
                  (d.index * xWidth);})
       .attr("width", xWidth * (1-xSpacing))
       .attr("y", function(d) { return height - d.frequency; })
