@@ -24,15 +24,17 @@ body {
 </style>
 <body>
 <script src="js/d3.js"></script>
+<script src="js/experiment.js"></script>
 <script>
 
 var data = [];
 var DATACOUNT = 12;
+var sets = make2Sets(DATACOUNT / 2);
 for (var i = 0; i < DATACOUNT; i++) {
   data.push( {
     color: i >= DATACOUNT/2,
     index: i,
-    frequency: d3.random.normal(200, 120)()
+    frequency: sets[Math.floor(i / (DATACOUNT/2))][i % (DATACOUNT/2)]
   });
 }
 
