@@ -6,12 +6,20 @@ body {
   font: 10px sans-serif;
 }
 
+svg {
+    display: block;
+    margin: 50px auto auto auto;
+}
+
 .axis path,
 .axis line {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
 }
+
+.cheat {stroke: #000; visibility: hidden;}
+svg:hover .cheat {visibility: visible;}
 
 .bar {
   fill: steelblue;
@@ -82,7 +90,15 @@ function draw(data) {
       .attr("width", xWidth * (1-xSpacing))
       .attr("y", function(d) { return height - d.frequency; })
       .attr("height", function(d) { return d.frequency; })
-      .style("fill", function (d) { return d.color ? 'rgb(55, 126, 184)' : 'rgb(228, 26, 28)'; }) ;
+      .style("fill", function (d) { return d.color ? 'rgb(55, 126, 184)' : 'rgb(228, 26, 28)'; });
+
+  svg.selectAll(".cheat")
+    .data(sets.slice(0,2)).enter().append("line")
+        .attr("class", "cheat")
+        .attr("y1", function (d, i) { return height - d3.mean(sets[i]); })
+        .attr("y2", function (d, i) { return height - d3.mean(sets[i]); })
+        .attr("x1", function (d, i) { return i * width/2; })
+        .attr("x2", function (d, i) { return (i+1) * width/2; });
 
 };
 draw(data);
