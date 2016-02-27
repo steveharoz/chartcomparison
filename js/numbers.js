@@ -28,14 +28,14 @@ function makeBoundSet(count, mu, sigma, min, max) {
 	return set;
 }
 
-function makeSetMax(count, mu1, sigma1, mu2, sigma2, maxInSet2, minInSet2) {
+function makeSetMax(count1, count2, mu1, sigma1, mu2, sigma2, maxInSet2, minInSet2) {
 	var set1, set2;
 	var isMaxInSet2;
 	var maxInCorrectSet = false;
 	var minInCorrectSet = false;
 	for (var i = 0; (!maxInCorrectSet || !minInCorrectSet) && i < 100000; i++) {
-		set1 = makeBoundSet(count, mu1, sigma1);
-		set2 = makeBoundSet(count, mu2, sigma2);
+		set1 = makeBoundSet(count1, mu1, sigma1);
+		set2 = makeBoundSet(count2, mu2, sigma2);
 
 		var max1 = d3.max(set1);
 		var max2 = d3.max(set2);
@@ -52,14 +52,14 @@ function makeSetMax(count, mu1, sigma1, mu2, sigma2, maxInSet2, minInSet2) {
 	return [set1, set2, i];
 }
 
-function make2Sets(count) {
-	var maxMean = Math.random() > 0.5;
-	var maxVariance = Math.random() > 0.5;
-	var maxValue = Math.random() > 0.5;
-	var minValue = Math.random() > 0.5;
+function make2Sets(count1, count2, maxMean, maxVariance, maxValue, minValue) {
+	maxMean = maxMean || Math.random() > 0.5;
+	maxVariance = maxVariance || Math.random() > 0.5;
+	maxValue = maxValue || Math.random() > 0.5;
+	minValue = minValue || Math.random() > 0.5;
 	var means = [240, 200]; if(maxMean) means.reverse();
 	var variances = [120, 90]; if(maxVariance) variances.reverse();
-	var sets = makeSetMax(count, means[0], variances[0], means[1], variances[1], maxValue, minValue);
+	var sets = makeSetMax(count1, count2, means[0], variances[0], means[1], variances[1], maxValue, minValue);
 	console.log(d3.min(sets[0]) < d3.min(sets[1]) ? 'min in 1st' : 'min in 2nd');
 	return sets;
 }

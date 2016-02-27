@@ -4,6 +4,8 @@
 	position_extent: 'position + extent'
 }
 
+var trial = new Trial(6, 6);
+
 
 var data = [];
 var DATACOUNT = 12;
@@ -23,13 +25,11 @@ var margin = {top: 5, right: 5, bottom: 5, left: 5},
 	width = 970 - margin.left - margin.right,
 	height = 610 - margin.top - margin.bottom;
 
-var formatPercent = d3.format(".0%");
-
-var xPadding = 0.05;
-var xCenterSpace = 0.1;
-var xSpacing = 34/64; // percent of bar width
-var xWidth = width * (1 - 2*xPadding - xCenterSpace) / DATACOUNT;
-var xBarWidth = xWidth * (1 - xSpacing);
+var maxSetCount = 2;
+var maxBarCount = 6;
+var xMargin = 0.05; // space at the edges of the x axis
+var xCenterSpace = 0.1; // space between sets
+var xSpaceBtwBars = 34/64; // proportion of bar width
 
 var svg = d3.select("body").append("svg")
 	.attr("width", width + margin.left + margin.right)
@@ -37,11 +37,25 @@ var svg = d3.select("body").append("svg")
   .append("g")
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-function getXPosition(d) {
-	return (width * xPadding) + // left margin
-		   (xWidth * xSpacing/2) + //spacing between bars
-		   (d.index >= DATACOUNT/2 ? width*xCenterSpace : 0) +
-		   (d.index * xWidth);
+function getXPosition(index, setIndex) {
+	var innerWidth = width * (1 - 2 * xMargin);
+	var setWidth = (innerWidth + width*xCenterSpace) / maxSetCount;
+	setWidth -= width * xCenterSpace;
+	var thisSetWidth = setWidth * (maxBarCount + xSpaceBtwBars) / maxBarCount;
+	var barPlusSpaceWidth = thisSetWidth / maxBarCount;
+	var bar
+	return (width * xMargin) + // left margin
+		   (setIndex * setWidth) + // set location
+		   (setIndex * width*xCenterSpace) + //margin between sets
+		   (index * barPlusSpaceWidth); // bar+space width
+}
+function getBarWidth() {
+	var innerWidth = width * (1 - 2 * xMargin);
+	var setWidth = (innerWidth + width*xCenterSpace) / maxSetCount;
+	setWidth -= width * xCenterSpace;
+	var thisSetWidth = setWidth * (maxBarCount + xSpaceBtwBars) / maxBarCount;
+	var barPlusSpaceWidth = thisSetWidth / maxBarCount;
+	return barPlusSpaceWidth * xSpaceBtwBars;
 }
 
 function draw(data, style) {
@@ -61,15 +75,26 @@ function draw(data, style) {
 
 	switch (style) {
 		case Styles.position_extent:
-			svg.selectAll(".bar")
-				.data(data)
-				.enter().append("rect")
+			for (var v = 0; v < trial.values1.length; v++) {
+				svg.append("rect")
 					.attr("class", "bar")
-					.attr("x", getXPosition)
-					.attr("width", xBarWidth)
-					.attr("y", function (d) { return height - d.frequency; })
-					.attr("height", function (d) { return d.frequency; })
-					.style("fill", function (d) { return d.color ? 'rgb(55, 126, 184)' : 'rgb(228, 26, 28)'; });
+					.attr("class", "bar1")
+					.attr("x", getXPosition(v, 0))
+					.attr("width", getBarWidth()-1)
+					.attr("y", height - trial.values1[v])
+					.attr("height", trial.values1[v])
+					.style("fill", 'rgb(228, 26, 28)');
+			}
+			for (var v = 0; v < trial.values2.length; v++) {
+				svg.append("rect")
+					.attr("class", "bar")
+					.attr("class", "bar2")
+					.attr("x", getXPosition(v, 1))
+					.attr("width", getBarWidth()-1)
+					.attr("y", height - trial.values2[v])
+					.attr("height", trial.values2[v])
+					.style("fill", 'rgb(55, 126, 184)');
+			}
 			break;
 		case Styles.extent:
 			svg.selectAll(".bar")
