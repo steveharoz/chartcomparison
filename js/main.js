@@ -9,7 +9,7 @@ var trial = new Trial(6, 6);
 
 var data = [];
 var DATACOUNT = 12;
-var sets = make2Sets(DATACOUNT / 2);
+var sets = [trial.values1, trial.values2];
 for (var i = 0; i < DATACOUNT; i++) {
   data.push( {
 	color: i >= DATACOUNT/2,

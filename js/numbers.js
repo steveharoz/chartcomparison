@@ -33,7 +33,7 @@ function makeSetMax(count1, count2, mu1, sigma1, mu2, sigma2, maxInSet2, minInSe
 	var isMaxInSet2;
 	var maxInCorrectSet = false;
 	var minInCorrectSet = false;
-	for (var i = 0; (!maxInCorrectSet || !minInCorrectSet) && i < 100000; i++) {
+	for (var i = 0; !(maxInCorrectSet && minInCorrectSet) && i < 100000; i++) {
 		set1 = makeBoundSet(count1, mu1, sigma1);
 		set2 = makeBoundSet(count2, mu2, sigma2);
 
@@ -60,15 +60,19 @@ function make2Sets(count1, count2, maxMean, maxVariance, maxValue, minValue) {
 	var means = [240, 200]; if(maxMean) means.reverse();
 	var variances = [120, 90]; if(maxVariance) variances.reverse();
 	var sets = makeSetMax(count1, count2, means[0], variances[0], means[1], variances[1], maxValue, minValue);
-	console.log(d3.min(sets[0]) < d3.min(sets[1]) ? 'min in 1st' : 'min in 2nd');
+	if (sets[2] > 10000)
+		console.log('mean: ' + maxMean + ' var: ' + maxVariance + ' max: ' + maxValue  + ' min: ' + minValue);
+	//console.log(d3.min(sets[0]) < d3.min(sets[1]) ? 'min in 1st' : 'min in 2nd');
 	return sets;
 }
 
 function testMake2Sets() {
 	var total = 0;
 	var count = 1000;
+	var starttime = window.performance.now();
 	for (var i = 0; i < count; i++) {
-		total += make2Sets(6)[2];
+		total += make2Sets(6, 6)[2];
 	}
+	console.log('duration: ' + (window.performance.now() - starttime));
 	return 'avg iterations: ' + total / count;
 }
