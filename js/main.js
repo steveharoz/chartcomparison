@@ -8,21 +8,6 @@ var Styles = {
 
 var trial = new Trial(6, 6);
 
-
-var data = [];
-var DATACOUNT = 12;
-var sets = [trial.values1, trial.values2];
-for (var i = 0; i < DATACOUNT; i++) {
-  data.push( {
-	color: i >= DATACOUNT/2,
-	index: i,
-	frequency: sets[Math.floor(i / (DATACOUNT/2))][i % (DATACOUNT/2)],
-	verticalOffset: Math.floor(Math.random() * 100)
-  });
-}
-
-var groupSpacing = 100;
-
 var margin = {top: 5, right: 5, bottom: 35, left: 5},
 	width = 970 - margin.left - margin.right,
 	height = 610 - margin.top - margin.bottom;
@@ -137,10 +122,10 @@ function draw(trial) {
 
 
   svg.selectAll(".cheat")
-	.data(sets.slice(0,2)).enter().append("line")
+	.data([trial.values1, trial.values2]).enter().append("line")
 		.attr("class", "cheat")
-		.attr("y1", function (d, i) { return height - d3.mean(sets[i]); })
-		.attr("y2", function (d, i) { return height - d3.mean(sets[i]); })
+		.attr("y1", function (d, i) { return height - d3.mean(d); })
+		.attr("y2", function (d, i) { return height - d3.mean(d); })
 		.attr("x1", function (d, i) { return i * width/2; })
 		.attr("x2", function (d, i) { return (i + 1) * width / 2; });
 
