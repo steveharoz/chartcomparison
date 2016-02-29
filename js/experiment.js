@@ -1,4 +1,7 @@
-﻿function Trial(count1=6, count2=6) {
+﻿/// <reference path="numbers.js" />
+/// <reference path="main.js" />
+
+function Trial(count1=6, count2=6) {
 	this.barcount1 = count1;
 	this.barcount2 = count2;
 	this.values1 = [];
@@ -6,7 +9,7 @@
 	this.verticalOffsets1 = [];
 	this.verticalOffsets2 = [];
 	this.index = -1;
-	this.style = Styles.position_extent;
+	this.style = Styles[Object.keys(Styles)[Math.floor(Math.random() * Object.keys(Styles).length)]];
 
 	this.maxMean = Math.random() > 0.5;
 	this.maxVariance = Math.random() > 0.5;

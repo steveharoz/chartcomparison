@@ -1,4 +1,6 @@
-﻿var Styles = {
+﻿/// <reference path="experiment.js" />
+
+var Styles = {
 	position:        'position',
 	extent:			 'extent',
 	position_extent: 'position + extent'
@@ -21,7 +23,7 @@ for (var i = 0; i < DATACOUNT; i++) {
 
 var groupSpacing = 100;
 
-var margin = {top: 5, right: 5, bottom: 5, left: 5},
+var margin = {top: 5, right: 5, bottom: 35, left: 5},
 	width = 970 - margin.left - margin.right,
 	height = 610 - margin.top - margin.bottom;
 
@@ -73,7 +75,7 @@ function draw(trial) {
 		.attr("class", "y axis")
 		.append("line")
 			.attr("x1", 0).attr("x2", 0)
-			.attr("y1", 0).attr("y2", height+3);
+			.attr("y1", 0).attr("y2", height);
 
 	switch (trial.style) {
 		case Styles.position_extent:
@@ -140,6 +142,12 @@ function draw(trial) {
 		.attr("y1", function (d, i) { return height - d3.mean(sets[i]); })
 		.attr("y2", function (d, i) { return height - d3.mean(sets[i]); })
 		.attr("x1", function (d, i) { return i * width/2; })
-		.attr("x2", function (d, i) { return (i+1) * width/2; });
+		.attr("x2", function (d, i) { return (i + 1) * width / 2; });
+
+  svg.append("text")
+	.attr("class", "cheat")
+	.attr("y", height + 20)
+	.style("font-size", 20)
+	.text("Max variance: set " + (trial.maxVariance+1) + " \u00A0\u00A0\u00A0\u00A0 Max single value: set " + (trial.maxValue+1) + " \u00A0\u00A0\u00A0\u00A0 Min single value: set " + (trial.minValue+1))
 
 }
