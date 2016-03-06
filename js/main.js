@@ -15,7 +15,7 @@ var margin = {top: 5, right: 5, bottom: 35, left: 5},
 var maxSetCount = 2;
 var maxBarCount = 6;
 var xMargin = 0.1; // space at the edges of the x axis
-var xCenterSpace = 0.25; // space between sets
+var xCenterSpace = 0.15; // space between sets
 var xSpaceBtwBars = 0.6; // proportion of bar width
 
 var svg = d3.select("body").append("svg")
