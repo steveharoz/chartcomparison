@@ -121,20 +121,60 @@ function draw(trial) {
 
 	}
 
+	drawGuidesAndCheats(trial);
+}
 
+function drawGuidesAndCheats(trial) {
 
-  svg.selectAll(".cheat")
-	.data([trial.values1, trial.values2]).enter().append("line")
+	var guides = svg.append("g").attr("class", "guides");
+	guides.append("line")
+		.attr("x1", 0)
+		.attr("x2", xMargin * width)
+		.attr("y1", height - 10)
+		.attr("y2", height - 10);
+	guides.append("line")
+		.attr("x1", width * (1-xMargin))
+		.attr("x2", width)
+		.attr("y1", height - 10)
+		.attr("y2", height - 10);
+	guides.append("line")
+		.attr("x1", width/2 - width * xCenterSpace/2)
+		.attr("x2", width/2 + width * xCenterSpace/2)
+		.attr("y1", height - 10)
+		.attr("y2", height - 10);
+	guides.append("line")
+		.attr("x1", width * xCenterSpace)
+		.attr("x2", width * xCenterSpace)
+		.attr("y1", 0)
+		.attr("y2", height);
+	guides.append("line")
+		.attr("x1", width/2 - width * xCenterSpace/2)
+		.attr("x2", width/2 - width * xCenterSpace/2)
+		.attr("y1", 0)
+		.attr("y2", height);
+	guides.append("line")
+		.attr("x1", width/2 + width * xCenterSpace/2)
+		.attr("x2", width/2 + width * xCenterSpace/2)
+		.attr("y1", 0)
+		.attr("y2", height);
+	guides.append("line")
+		.attr("x1", width * (1-xCenterSpace))
+		.attr("x2", width * (1-xCenterSpace))
+		.attr("y1", 0)
+		.attr("y2", height);
+
+	svg.selectAll(".cheat")
+		.data([trial.values1, trial.values2]).enter().append("line")
+			.attr("class", "cheat")
+			.attr("y1", function (d, i) { return height - d3.mean(d); })
+			.attr("y2", function (d, i) { return height - d3.mean(d); })
+			.attr("x1", function (d, i) { return i * width/2; })
+			.attr("x2", function (d, i) { return (i + 1) * width / 2; });
+
+	svg.append("text")
 		.attr("class", "cheat")
-		.attr("y1", function (d, i) { return height - d3.mean(d); })
-		.attr("y2", function (d, i) { return height - d3.mean(d); })
-		.attr("x1", function (d, i) { return i * width/2; })
-		.attr("x2", function (d, i) { return (i + 1) * width / 2; });
-
-  svg.append("text")
-	.attr("class", "cheat")
-	.attr("y", height + 20)
-	.style("font-size", 20)
-	.text("Max variance: set " + (trial.maxVariance+1) + " \u00A0\u00A0\u00A0\u00A0 Max single value: set " + (trial.maxValue+1) + " \u00A0\u00A0\u00A0\u00A0 Min single value: set " + (trial.minValue+1))
+		.attr("y", height + 20)
+		.style("font-size", 20)
+		.text("Max variance: set " + (trial.maxVariance+1) + " \u00A0\u00A0\u00A0\u00A0 Max single value: set " + (trial.maxValue+1) + " \u00A0\u00A0\u00A0\u00A0 Min single value: set " + (trial.minValue+1))
 
 }
