@@ -28,12 +28,12 @@ function makeBoundSet(count, mu, sigma, min, max) {
 	return set;
 }
 
-function makeSetMax(count1, count2, mu1, sigma1, mu2, sigma2, maxInSet2, minInSet2) {
+function makeSetMax(count1, mu1, sigma1, count2, mu2, sigma2, maxInSet2, minInSet2) {
 	var set1, set2;
 	var isMaxInSet2;
 	var maxInCorrectSet = false;
 	var minInCorrectSet = false;
-	for (var i = 0; !(maxInCorrectSet && minInCorrectSet) && i < 100000; i++) {
+	for (var i = 0; !(maxInCorrectSet && minInCorrectSet) && i < 99999; i++) {
 		set1 = makeBoundSet(count1, mu1, sigma1);
 		set2 = makeBoundSet(count2, mu2, sigma2);
 
@@ -52,14 +52,16 @@ function makeSetMax(count1, count2, mu1, sigma1, mu2, sigma2, maxInSet2, minInSe
 	return [set1, set2, i];
 }
 
-function make2Sets(count1, count2, maxMean, maxVariance, maxValue, minValue) {
+function make2Sets(counts, means, variances, maxMean, maxVariance, maxValue, minValue) {
 	maxMean = maxMean || Math.random() > 0.5;
 	maxVariance = maxVariance || Math.random() > 0.5;
 	maxValue = maxValue || Math.random() > 0.5;
 	minValue = minValue || Math.random() > 0.5;
-	var means = [240, 200]; if(maxMean) means.reverse();
-	var variances = [120, 90]; if(maxVariance) variances.reverse();
-	var sets = makeSetMax(count1, count2, means[0], variances[0], means[1], variances[1], maxValue, minValue);
+	if(maxMean) 
+		means.reverse();
+	if(maxVariance) 
+		variances.reverse();
+	var sets = makeSetMax(counts[0], means[0], variances[0], counts[1], means[1], variances[1], maxValue, minValue);
 	if (sets[2] > 10000)
 		console.log('mean: ' + maxMean + ' var: ' + maxVariance + ' max: ' + maxValue  + ' min: ' + minValue);
 	//console.log(d3.min(sets[0]) < d3.min(sets[1]) ? 'min in 1st' : 'min in 2nd');
@@ -71,7 +73,7 @@ function testMake2Sets() {
 	var count = 1000;
 	var starttime = window.performance.now();
 	for (var i = 0; i < count; i++) {
-		total += make2Sets(6, 6)[2];
+		total += make2Sets([6,6], [240,200], [120,90])[2];
 	}
 	console.log('duration: ' + (window.performance.now() - starttime));
 	return 'avg iterations: ' + total / count;
