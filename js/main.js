@@ -168,8 +168,8 @@ function drawGuidesAndCheats(trial) {
 			.attr("class", "cheat")
 			.attr("y1", function (d, i) { return height - d3.mean(d); })
 			.attr("y2", function (d, i) { return height - d3.mean(d); })
-			.attr("x1", function (d, i) { return i * width/2; })
-			.attr("x2", function (d, i) { return (i + 1) * width / 2; });
+			.attr("x1", function (d, i) { return getXPosition(0, i); })
+			.attr("x2", function (d, i) { return getXPosition(maxBarCount-xSpaceBtwBars, i); });
 
 	svg.append("text")
 		.attr("class", "cheat")
