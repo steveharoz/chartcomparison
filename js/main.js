@@ -15,8 +15,8 @@ var margin = {top: 5, right: 5, bottom: 35, left: 5},
 var maxSetCount = 2;
 var maxBarCount = 6;
 var xMargin = 0.1; // space at the edges of the x axis
-var xCenterSpace = 0.15; // space between sets
-var xSpaceBtwBars = 0.6; // proportion of bar width
+var xCenterSpace = 0.1; // space between sets
+var xSpaceBtwBars = 0.33; // proportion of bar width
 
 var svg = d3.select("body").append("svg")
 	.attr("width", width + margin.left + margin.right)
@@ -26,25 +26,27 @@ var svg = d3.select("body").append("svg")
 
 draw(trial);
 
-function getXPosition(index, setIndex) {
+function getSetWidth() {
 	var innerWidth = width * (1 - 2 * xMargin);
-	var setWidth = (innerWidth + width*xCenterSpace) / maxSetCount;
+	innerWidth += width * xCenterSpace;
+	var setWidth = innerWidth / maxSetCount;
 	setWidth -= width * xCenterSpace;
-	var thisSetWidth = setWidth * (maxBarCount + xSpaceBtwBars) / maxBarCount;
-	var barPlusSpaceWidth = thisSetWidth / maxBarCount;
-	var bar
-	return (width * xMargin) + // left margin
-		   (setIndex * setWidth) + // set location
-		   (setIndex * width*xCenterSpace) + //margin between sets
-		   (index * barPlusSpaceWidth); // bar+space width
+	return setWidth;
+
+}
+function getBarRegionWidth() {
+	var setWidth = getSetWidth();
+	setWidth *= (maxBarCount + xSpaceBtwBars) / maxBarCount;
+	var barWidth = setWidth / maxBarCount;
+	return barWidth;
 }
 function getBarWidth() {
-	var innerWidth = width * (1 - 2 * xMargin);
-	var setWidth = (innerWidth + width*xCenterSpace) / maxSetCount;
-	setWidth -= width * xCenterSpace;
-	var thisSetWidth = setWidth * (maxBarCount + xSpaceBtwBars) / maxBarCount;
-	var barPlusSpaceWidth = thisSetWidth / maxBarCount;
-	return barPlusSpaceWidth * xSpaceBtwBars;
+	return getBarRegionWidth() * (1-xSpaceBtwBars)
+}
+function getXPosition(index, setIndex) {
+	return xMargin * width +
+		(getSetWidth() + width * xCenterSpace) * setIndex +
+		getBarRegionWidth() * index;
 }
 
 function draw(trial) {
