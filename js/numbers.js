@@ -33,7 +33,9 @@ function makeSetMax(count1, mu1, sigma1, count2, mu2, sigma2, maxInSet2, minInSe
 	var isMaxInSet2;
 	var maxInCorrectSet = false;
 	var minInCorrectSet = false;
-	for (var i = 0; !(maxInCorrectSet && minInCorrectSet) && i < 99999; i++) {
+	var bigDiff = Math.abs(mu1-mu2) > 40.1;
+	// for big diffs either maxInCorrectSet or minInCorrectSet. Both for smaller diffs
+	for (var i = 0; (bigDiff ? !(maxInCorrectSet || minInCorrectSet) : !(maxInCorrectSet && minInCorrectSet)) && i < 99999; i++) {
 		set1 = makeBoundSet(count1, mu1, sigma1);
 		set2 = makeBoundSet(count2, mu2, sigma2);
 

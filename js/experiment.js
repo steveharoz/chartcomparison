@@ -4,7 +4,7 @@
 function Trial(count1=6, count2=6) {
 	this.barcount1 = count1;
 	this.barcount2 = count2;
-	this.meanDiff = 40;
+	this.meanDiff = 90;
 	this.values1 = [];
 	this.values2 = [];
 	this.variance1 = 120;
@@ -27,11 +27,11 @@ function Trial(count1=6, count2=6) {
 
 	var sets = make2Sets(
 		[this.barcount1, this.barcount2], 
-		[250, 250+this.meanDiff], 
+		[200, 200+this.meanDiff], 
 		[this.variance1, this.variance2], 
 		this.maxMean, this.maxVariance, this.maxValue, this.minValue);
 	this.values1 = sets[0];
 	this.values2 = sets[1];
-	this.verticalOffsets1 = this.values1.map(() => Math.floor(Math.random()*101));
-	this.verticalOffsets2 = this.values2.map(() => Math.floor(Math.random()*101));
+	this.verticalOffsets1 = this.values1.map(() => Math.floor(Math.random()*151));
+	this.verticalOffsets2 = this.values2.map(() => Math.floor(Math.random()*151));
 }
