@@ -69,7 +69,7 @@ function draw(trial) {
 			for (var v = 0; v < trial.values1.length; v++) {
 				svg.append("rect")
 					.attr("class", "bar bar1")
-					.attr("x", getXPosition(v, 0))
+					.attr("x", getXPosition(maxBarCount - v - 1, 0))
 					.attr("width", getBarWidth())
 					.attr("y", height - trial.values1[v])
 					.attr("height", trial.values1[v]);
@@ -87,7 +87,7 @@ function draw(trial) {
 			for (var v = 0; v < trial.values1.length; v++) {
 				svg.append("rect")
 					.attr("class", "bar bar1")
-					.attr("x", getXPosition(v, 0))
+					.attr("x", getXPosition(maxBarCount - v - 1, 0))
 					.attr("width", getBarWidth())
 					.attr("y", height - trial.values1[v] - trial.verticalOffsets1[v])
 					.attr("height", trial.values1[v]);
@@ -105,7 +105,7 @@ function draw(trial) {
 			for (var v = 0; v < trial.values1.length; v++) {
 				svg.append("circle")
 					.attr("class", "bar bar1")
-					.attr("cx", getXPosition(v, 0) + getBarWidth() / 2)
+					.attr("cx", getXPosition(maxBarCount - v - 1, 0) + getBarWidth() / 2)
 					.attr("cy", height - trial.values1[v])
 					.attr("r", getBarWidth() / 2);
 			}
