@@ -8,10 +8,13 @@ var Styles = {
 	position_extent: 'position + extent'
 }
 
-var staircase = new Staircase();
-
-var stairValue = Math.pow(1.3, staircase.valueIndex);
-
-var trial = new Trial(6, 6, stairValue);
-
+var experiment = new Experiment();
+experiment.makeExperiment();
+var trial = experiment.nextTrial();
 draw(trial);
+
+function answer(setIndex) {
+	experiment.answer(setIndex);
+	trial = experiment.nextTrial();
+	draw(trial);
+}
