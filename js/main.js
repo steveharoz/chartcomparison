@@ -12,6 +12,6 @@ var staircase = new Staircase();
 
 var stairValue = Math.pow(1.3, staircase.valueIndex);
 
-var trial = new Trial(6, 6);
+var trial = new Trial(6, 6, stairValue);
 
 draw(trial);

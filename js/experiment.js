@@ -1,10 +1,10 @@
 ﻿/// <reference path="numbers.js" />
 /// <reference path="main.js" />
 
-function Trial(count1=6, count2=6) {
+function Trial(count1=6, count2=6, diff=90, style=Styles.position) {
 	this.barcount1 = count1;
 	this.barcount2 = count2;
-	this.meanDiff = 90;
+	this.meanDiff = diff;
 	this.values1 = [];
 	this.values2 = [];
 	this.variance1 = 120;
@@ -12,7 +12,7 @@ function Trial(count1=6, count2=6) {
 	this.verticalOffsets1 = [];
 	this.verticalOffsets2 = [];
 	this.index = -1;
-	this.style = Styles.position;//Styles[Object.keys(Styles)[Math.floor(Math.random() * Object.keys(Styles).length)]];
+	this.style = style;
 
 	this.maxMean = Math.random() > 0.5;
 	this.maxVariance = Math.random() > 0.5;
@@ -25,13 +25,16 @@ function Trial(count1=6, count2=6) {
 	this.response = [];
 	this.useAspectRatio = false;
 
-	var sets = make2Sets(
-		[this.barcount1, this.barcount2], 
-		[200, 200+this.meanDiff], 
-		[this.variance1, this.variance2], 
-		this.maxMean, this.maxVariance, this.maxValue, this.minValue);
-	this.values1 = sets[0];
-	this.values2 = sets[1];
-	this.verticalOffsets1 = this.values1.map(() => Math.floor(Math.random()*151));
-	this.verticalOffsets2 = this.values2.map(() => Math.floor(Math.random()*151));
+	this.makeSets = function() {
+		var sets = make2Sets(
+			[this.barcount1, this.barcount2], 
+			[200, 200+this.meanDiff], 
+			[this.variance1, this.variance2], 
+			this.maxMean, this.maxVariance, this.maxValue, this.minValue);
+		this.values1 = sets[0];
+		this.values2 = sets[1];
+		this.verticalOffsets1 = this.values1.map(() => Math.floor(Math.random()*151));
+		this.verticalOffsets2 = this.values2.map(() => Math.floor(Math.random()*151));
+	};
+	this.makeSets();
 }
