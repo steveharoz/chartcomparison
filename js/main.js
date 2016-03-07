@@ -18,7 +18,7 @@ var xMargin = 0.1; // space at the edges of the x axis
 var xCenterSpace = 0.1; // space between sets
 var xSpaceBtwBars = 0.33; // proportion of bar width
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#chart")
 	.attr("width", width + margin.left + margin.right)
 	.attr("height", height + margin.top + margin.bottom)
   .append("g")
