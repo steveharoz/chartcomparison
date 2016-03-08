@@ -1,4 +1,4 @@
-﻿/// <reference path="d3.js" />
+﻿/// <reference path="../_libraries/js/d3.js" />
 
 var randNormal = d3.random.normal();
 

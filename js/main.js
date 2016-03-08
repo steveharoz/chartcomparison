@@ -1,7 +1,7 @@
 ﻿/// <reference path="experiment.js" />
 /// <reference path="staircase.js" />
 /// <reference path="render.js" />
-/// <reference path="bootstrap/js/jquery-1.9.1.js" />
+/// <reference path="_libraries/js/jquery-2.2.1.js" />
 
 var Styles = {
 	position:        'position',
