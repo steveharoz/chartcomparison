@@ -108,8 +108,13 @@ function draw(trial) {
 			}
 			break;
 		default:
-
 	}
+
+	// hide the bars
+	d3.selectAll('.bar').transition()
+		.duration(0)
+		.delay(trial.presentationTime)
+		.style("opacity", 0);
 
 	drawGuidesAndCheats(trial);
 }
