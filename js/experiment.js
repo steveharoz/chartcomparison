@@ -15,7 +15,7 @@ function Experiment() {
 					staircase: new Staircase(), 
 					count1:counts[c][0], 
 					count2:counts[c][1], 
-					style: styles[s]
+					style: Styles[styles[s]]
 				});
 			}
 		}
