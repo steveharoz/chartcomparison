@@ -16,6 +16,10 @@ function makeBoundSet(count, mu, sigma, min, max) {
 	min = min ? min : 20;
 	max = max ? max : height;
 
+	// special case for set size 1
+	if (count <= 1)
+		return [mu];
+
 	var set = [];
 	var i = 0;
 	var outOfBounds = true;
