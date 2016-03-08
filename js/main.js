@@ -22,7 +22,7 @@ function answer(setIndex) {
 
 	// feedback
 	var correct = experiment.currentTrial.correct;
-	var symbol = correct ? '✓' : '✘';
+	var symbol = correct ? '✓' : setIndex ? 'Incorrect ✘' : '✘ Incorrect';
 	$('#feedback' + setIndex).text(symbol)
 
 	setTimeout(nextTrial, correct ? 500 : 2000);
