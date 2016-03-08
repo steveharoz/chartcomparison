@@ -55,10 +55,10 @@ function makeSetMax(count1, mu1, sigma1, count2, mu2, sigma2, maxInSet2, minInSe
 }
 
 function make2Sets(counts, means, variances, maxMean, maxVariance, maxValue, minValue) {
-	maxMean = maxMean || Math.random() > 0.5;
-	maxVariance = maxVariance || Math.random() > 0.5;
-	maxValue = maxValue || Math.random() > 0.5;
-	minValue = minValue || Math.random() > 0.5;
+	if (maxMean === undefined) maxMean = Math.random() > 0.5;
+	if (maxVariance === undefined) maxVariance = Math.random() > 0.5;
+	if (maxValue === undefined) maxValue = Math.random() > 0.5;
+	if (minValue === undefined) minValue = Math.random() > 0.5;
 	if(maxMean) 
 		means.reverse();
 	if(maxVariance) 

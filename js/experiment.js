@@ -84,7 +84,7 @@ function Trial(count1=6, count2=6, diff=90, style=Styles.position) {
 	this.makeSets = function() {
 		var sets = make2Sets(
 			[this.barcount1, this.barcount2], 
-			[200, 200+this.meanDiff], 
+			[200+this.meanDiff, 200], 
 			[this.variance1, this.variance2], 
 			this.maxMean, this.maxVariance, this.maxValue, this.minValue);
 		this.values1 = sets[0];
