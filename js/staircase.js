@@ -5,7 +5,8 @@
 function Staircase() {
 	this.upRule = 1;
 	this.downRule = 3;
-	this.state = 0;
+	this.incorrects = 0;
+	this.corrects = 0;
 	this.valueIndex = 16;
 	this.reversalCount = 0;
 	this.previousDirection = 0;
@@ -13,18 +14,29 @@ function Staircase() {
 
 	// subject responds either correctly or incorrectly
 	this.answer = function (isCorrect) {
-		var diff = -(isCorrect * 2 - 1); // -1 for correct
-		this.state += diff;
-		if (this.state <= this.downRule)
+
+		if (isCorrect) {
+			this.corrects++;
+			this.incorrects = 0;
+		} else {
+			this.corrects = 0;
+			this.incorrects++;
+		}
+
+		if (this.corrects >= this.downRule)
 			this.updateValue(-1);
-		else if (this.state >= this.upRule)
+		else if (this.incorrects >= this.upRule)
 			this.updateValue(+1);
 	};
 
 	// (private) update valueIndex, state, reversals
 	this.updateValue = function (diff) {
-		this.state = 0;
+		// reset step's internal state
+		this.corrects = 0;
+		this.incorrects = 0;
+		// move the valueIndex up or down
 		this.valueIndex += diff;
+		// check reversal
 		if (diff == -this.previousDirection)
 			this.reversalCount++;
 		this.previousDirection = diff;
