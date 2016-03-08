@@ -37,9 +37,12 @@ function makeSetMax(count1, mu1, sigma1, count2, mu2, sigma2, maxInSet2, minInSe
 	var isMaxInSet2;
 	var maxInCorrectSet = false;
 	var minInCorrectSet = false;
-	var bigDiff = Math.abs(mu1-mu2) > 40.1;
+	var bigDiff = Math.abs(mu1-mu2) > 40.1; // when diff is large, simplify criteria
+
+	// keep trying?
+	var keepTrying = true;
 	// for big diffs either maxInCorrectSet or minInCorrectSet. Both for smaller diffs
-	for (var i = 0; (bigDiff ? !(maxInCorrectSet || minInCorrectSet) : !(maxInCorrectSet && minInCorrectSet)) && i < 99999; i++) {
+	for (var i = 0; keepTrying && i < 99999; i++) {
 		set1 = makeBoundSet(count1, mu1, sigma1);
 		set2 = makeBoundSet(count2, mu2, sigma2);
 
@@ -52,6 +55,12 @@ function makeSetMax(count1, mu1, sigma1, count2, mu2, sigma2, maxInSet2, minInSe
 		var min2 = d3.min(set2);
 		isMinInSet2 = min2 < min1;
 		minInCorrectSet = isMinInSet2 == minInSet2;
+
+		// keep trying?
+		keepTrying = bigDiff ? 
+			!(maxInCorrectSet || minInCorrectSet) : 
+			!(maxInCorrectSet && minInCorrectSet);
+
 	}
 	if (i > 10000)
 		console.log('reps:' + i);
