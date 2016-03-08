@@ -2,6 +2,8 @@
 /// <reference path="main.js" />
 /// <reference path="staircase.js" />
 
+var STAIR_BASE = 1.3;
+
 function Experiment() {
 	this.staircases = [];
 	this.stairIndex = -1;
@@ -21,6 +23,11 @@ function Experiment() {
 		}
 	};
 
+	// convert the level of the staircase to a value
+	this.stairLevel2Value = function(index) {
+		return Math.pow(STAIR_BASE, index);
+	}
+
 	// get the next trial
 	this.nextTrial = function() {
 		// go to next staircase
@@ -34,8 +41,7 @@ function Experiment() {
 		// get the params for this trial
 		var stairparams = this.staircases[this.stairIndex];
 		// calculate the diff value from the stair 
-		var stairValue = stairparams.staircase.valueIndex;
-		stairValue = Math.pow(1.3, stairValue);
+		var stairValue = this.stairLevel2Value(stairparams.staircase.valueIndex);
 		// make a trial from the this staircase
 		var trial = new Trial(
 			stairparams.count1, 
