@@ -18,9 +18,11 @@ function Staircase() {
 		if (isCorrect) {
 			this.corrects++;
 			this.incorrects = 0;
+			console.log('correct ' + this.corrects);
 		} else {
 			this.corrects = 0;
 			this.incorrects++;
+			console.log('nope ' + this.incorrects);
 		}
 
 		if (this.corrects >= this.downRule)

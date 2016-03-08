@@ -8,7 +8,7 @@ function Experiment() {
 	this.currentTrial;
 	this.makeExperiment = function () {
 		var counts = [[6,6]];
-		var styles = Object.keys(Styles);
+		var styles = [Object.keys(Styles)[2]];
 		for (var c in counts) {
 			for (var s in styles) {
 				this.staircases.push( {
