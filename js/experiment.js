@@ -9,7 +9,7 @@ function Experiment() {
 	this.stairIndex = -1;
 	this.currentTrial;
 	this.makeExperiment = function () {
-		var counts = [[6,6]];
+		var counts = [[1,1]];
 		var styles = [Object.keys(Styles)[2]];
 		for (var c in counts) {
 			for (var s in styles) {
@@ -66,6 +66,7 @@ function Experiment() {
 function Trial(count1=6, count2=6, diff=90, style=Styles.position) {
 	this.barcount1 = count1;
 	this.barcount2 = count2;
+	this.baseValue = 175 + Math.random() * 50;
 	this.meanDiff = diff;
 	this.values1 = [];
 	this.values2 = [];
@@ -90,7 +91,7 @@ function Trial(count1=6, count2=6, diff=90, style=Styles.position) {
 	this.makeSets = function() {
 		var sets = make2Sets(
 			[this.barcount1, this.barcount2], 
-			[200+this.meanDiff, 200], 
+			[this.baseValue+this.meanDiff, this.baseValue], 
 			[this.variance1, this.variance2], 
 			this.maxMean, this.maxVariance, this.maxValue, this.minValue);
 		this.values1 = sets[0];
