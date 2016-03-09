@@ -66,7 +66,7 @@ function Experiment() {
 function Trial(count1=6, count2=6, diff=90, style=Styles.position) {
 	this.barcount1 = count1;
 	this.barcount2 = count2;
-	this.baseValue = 175 + Math.random() * 50;
+	this.baseValue = 200 + Math.random() * 100;
 	this.meanDiff = diff;
 	this.values1 = [];
 	this.values2 = [];
