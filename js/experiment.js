@@ -55,8 +55,8 @@ function Experiment() {
 
 	// input an answer
 	this.answer = function(setIndex) {
-		trial.answer(setIndex);
-		this.staircases[this.stairIndex].staircase.answer(trial.correct);
+		this.currentTrial.answer(setIndex);
+		this.staircases[this.stairIndex].staircase.answer(this.currentTrial.correct);
 	};
 }
 
