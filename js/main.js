@@ -22,6 +22,4 @@ function answer(setIndex) {
 	experiment.answer(setIndex);
 
 	Statemachine.goToState(States.feedback);
-
-	//setTimeout(Statemachine.goToNextState, correct ? 500 : 2000);
 }

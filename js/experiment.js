@@ -7,7 +7,7 @@ var STAIR_BASE = 1.3;
 function Experiment() {
 	this.staircases = [];
 	this.stairIndex = -1;
-	this.currentTrial;
+	this.currentTrial = new Trial();
 	this.makeExperiment = function () {
 		var counts = [[1,1]];
 		var styles = [Object.keys(Styles)[2]];
@@ -105,5 +105,6 @@ function Trial(count1=6, count2=6, diff=90, style=Styles.position) {
 	this.answer = function(setIndex) {
 		this.response = setIndex;
 		this.correct = setIndex == this.maxMean;
+		// TODO: record RT
 	};
 }

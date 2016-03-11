@@ -16,12 +16,12 @@ var States = {
 
 var Statemachine = new function () {
 	this.state = null;
-
+	this.stimulusThread = null;
 
 	// choose the next state based on the current state
 	this.goToNextState = function () {
 		var nextState;
-		switch (this.state) {
+		switch (Statemachine.state) {
 			case null:
 				nextState = States.instructions;
 				break;
@@ -38,17 +38,17 @@ var Statemachine = new function () {
 				// check of done with block or exp
 				nextState = States.feedback;
 				break;
-			default: console.log('Scheiße! ' + this.state);
+			default: console.log('Scheiße! ' + Statemachine.state);
 		}
-		this.goToState(nextState);
+		Statemachine.goToState(nextState);
 	};
 
 	// go to a specific state
 	this.goToState = function (_state) {
 		// set new state
-		var previousState = this.state;
+		var previousState = Statemachine.state;
 		this.state = _state;
-		console.log('from ' + previousState + ' to ' + this.state);
+		console.log('from ' + previousState + ' to ' + Statemachine.state);
 
 		// cleanup
 		switch (previousState) {
@@ -61,9 +61,6 @@ var Statemachine = new function () {
 				$('#feedback0, #feedback1').text('');
 				break;
 			case States.stimulus:
-				// hide stimulus
-				d3.selectAll('.bar')
-					.style("opacity", 0);
 				break;
 			case States.response:
 				// prevent double click
@@ -79,13 +76,14 @@ var Statemachine = new function () {
 		}
 
 		// proceed to next state
-		switch (this.state) {
+		switch (Statemachine.state) {
 			case States.instructions:
 				// TODO: show instructions
 				// For now, skip and jump to next step 
-				this.goToState(States.trialSetup);
+				Statemachine.goToState(States.trialSetup);
 				break;
 			case States.trialSetup:
+				// show the container for the stimulus (not the bars yet)
 				$('#stimulus').show(0);
 				// TODO: do something in case of delay
 				// generate next trial
@@ -93,18 +91,20 @@ var Statemachine = new function () {
 				// render (but don't show) stimulus
 				draw(experiment.currentTrial);
 				// TODO: make this async
-				this.goToNextState();
+				Statemachine.goToNextState();
 				break;
 			case States.stimulus:
 				// ISI, then show stimulus+response
 				setTimeout(function () {
 					// Show stimulus and response
-					showStimulus();
+					showStimulus( experiment.currentTrial.presentationTime, Statemachine.goToNextState);
 					$('#response').show(0);
 				}, ISI);
-				
 				break;
 			case States.response:
+				// hide stimulus
+				d3.selectAll('.bar')
+					.style("opacity", 0);
 				break;
 			case States.feedback:
 				// hide response
@@ -115,8 +115,8 @@ var Statemachine = new function () {
 				$('#feedback' + experiment.currentTrial.response).text(symbol);
 				// show feedback
 				$('#feedback').show(0);
-				// TODO wait, then continue
-				//setTimeout(Statemachine.goToNextState, correct ? 500 : 2000);
+				// wait, then continue
+				setTimeout(Statemachine.goToNextState, correct ? 500 : 2000);
 				break;
 			default:
 		}

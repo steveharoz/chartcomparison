@@ -119,10 +119,21 @@ function hideStimulus() {
 	d3.selectAll('.bar')
 		.style("opacity", 0);
 }
-// show the bars
-function showStimulus() {
+// show the bars for a specified duration
+function showStimulus(duration_ms, callback) {
+	// show the bars
 	d3.selectAll('.bar')
 		.style("opacity", 1);
+	// return if unlimitted duration
+	if (duration_ms <= 0)
+		return;
+	// after duration, hide bars
+	Statemachine.stimulusThread = setTimeout(function () {
+		hideStimulus();
+		clearTimeout(Statemachine.stimulusThread);
+		if( typeof(callback) == 'function' )
+			callback();
+	}, duration_ms);
 }
 
 function drawGuidesAndCheats(trial) {
