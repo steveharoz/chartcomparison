@@ -1,6 +1,7 @@
 ﻿/// <reference path="experiment.js" />
 /// <reference path="staircase.js" />
 /// <reference path="render.js" />
+/// <reference path="statemachine.js" />
 /// <reference path="_libraries/js/jquery-2.2.1.js" />
 
 var Styles = {
@@ -11,26 +12,16 @@ var Styles = {
 
 var experiment = new Experiment();
 experiment.makeExperiment();
-var trial;
-nextTrial();
+Statemachine.goToNextState();
 
 function answer(setIndex) {
-	// prevent double click
-	$('#response').hide(0);
+	if (Statemachine.state != States.stimulus && Statemachine.state != States.response)
+		return;
+
 	// record the response
 	experiment.answer(setIndex);
 
-	// feedback
-	var correct = experiment.currentTrial.correct;
-	var symbol = correct ? '✓' : setIndex ? 'Incorrect ✘' : '✘ Incorrect';
-	$('#feedback' + setIndex).text(symbol)
+	Statemachine.goToState(States.feedback);
 
-	setTimeout(nextTrial, correct ? 500 : 2000);
-}
-
-function nextTrial() {
-	trial = experiment.nextTrial();
-	draw(trial);
-	$('#feedback0, #feedback1').text('');
-	$('#response').show(0);
+	//setTimeout(Statemachine.goToNextState, correct ? 500 : 2000);
 }

@@ -109,14 +109,20 @@ function draw(trial) {
 			break;
 		default:
 	}
-
-	// hide the bars
-	d3.selectAll('.bar').transition()
-		.duration(0)
-		.delay(trial.presentationTime)
-		.style("opacity", 0);
-
+	hideStimulus();
 	drawGuidesAndCheats(trial);
+}
+
+
+// hide the bars
+function hideStimulus() {
+	d3.selectAll('.bar')
+		.style("opacity", 0);
+}
+// show the bars
+function showStimulus() {
+	d3.selectAll('.bar')
+		.style("opacity", 1);
 }
 
 function drawGuidesAndCheats(trial) {
