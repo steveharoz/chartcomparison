@@ -10,11 +10,7 @@ var xMargin = 0.1; // space at the edges of the x axis
 var xCenterSpace = 0.1; // space between sets
 var xSpaceBtwBars = 0.33; // proportion of bar width
 
-var svg = d3.select("#chart")
-	.attr("width", width + margin.left + margin.right)
-	.attr("height", height + margin.top + margin.bottom)
-  .append("g")
-	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+var svg;
 
 function getSetWidth() {
 	var innerWidth = width * (1 - 2 * xMargin);
@@ -39,8 +35,12 @@ function getXPosition(index, setIndex) {
 		getBarRegionWidth() * index;
 }
 
-function draw(trial) {
-	svg.selectAll("*").remove();
+function initializeSVG() {
+	svg = d3.select("#chart")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 	svg.append("g")
 		.attr("class", "x axis")
@@ -53,6 +53,12 @@ function draw(trial) {
 		.append("line")
 			.attr("x1", 0).attr("x2", 0)
 			.attr("y1", 0).attr("y2", height);
+}
+initializeSVG();
+
+// render and hide the bars
+function draw(trial) {
+	svg.selectAll(".bar").remove();
 
 	switch (trial.style) {
 		case Styles.position_extent:
