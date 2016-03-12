@@ -61,6 +61,7 @@ var Statemachine = new function () {
 				$('#feedback0, #feedback1').text('');
 				break;
 			case States.stimulus:
+				clearTimeout(Statemachine.stimulusThread);
 				break;
 			case States.response:
 				// prevent double click
@@ -116,7 +117,9 @@ var Statemachine = new function () {
 				// show feedback
 				$('#feedback').show(0);
 				// wait, then continue
-				setTimeout(Statemachine.goToNextState, correct ? 500 : 2000);
+				// TODO: stopping criteria
+				var continueToNextTrial = function () { Statemachine.goToState(States.trialSetup); };
+				setTimeout(continueToNextTrial, correct ? 500 : 2000);
 				break;
 			default:
 		}
