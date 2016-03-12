@@ -58,7 +58,7 @@ initializeSVG();
 
 // render and hide the bars
 function draw(trial) {
-	svg.selectAll(".bar").remove();
+	svg.selectAll(".bar, .cheat, .guides").remove();
 
 	switch (trial.style) {
 		case Styles.position_extent:
