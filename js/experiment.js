@@ -2,8 +2,6 @@
 /// <reference path="main.js" />
 /// <reference path="staircase.js" />
 
-var STAIR_BASE = 1.3;
-
 function Experiment() {
 	this.staircases = [];
 	this.stairIndex = -1;
@@ -11,7 +9,7 @@ function Experiment() {
 	this.trials = [];
 
 	this.makeExperiment = function () {
-		var counts = [[1,1]];
+		var counts = [[1,1], [6,6]];
 		var styles = [Object.keys(Styles)[2]];
 		for (var c in counts) {
 			for (var s in styles) {
@@ -30,11 +28,6 @@ function Experiment() {
 		return this.staircases[this.stairIndex].staircase;
 	}
 
-	// convert the level of the staircase to a value
-	this.stairLevel2Value = function(index) {
-		return Math.pow(STAIR_BASE, index);
-	}
-
 	// get the next trial
 	this.nextTrial = function() {
 		// go to next staircase
@@ -45,10 +38,20 @@ function Experiment() {
 			this.stairIndex = 0;
 			d3.shuffle(this.staircases);
 		}
+
+		// if staircase is complete, go to the next one
+		while(this.stairIndex < this.staircases.length && this.getCurrentStaircase().isComplete())
+			this.stairIndex++;
+		// if all done, finished
+		if (this.stairIndex >= this.staircases.length) {
+			Statemachine.goToState(States.finished);
+			return;
+		}
+
 		// get the params for this trial
 		var stairparams = this.staircases[this.stairIndex];
 		// calculate the diff value from the stair 
-		var stairValue = this.stairLevel2Value(this.getCurrentStaircase().valueIndex);
+		var stairValue = this.getCurrentStaircase().stairLevel2Value();
 		// make a trial from the this staircase
 		var trial = new Trial(
 			stairparams.count1, 
