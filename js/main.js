@@ -10,9 +10,11 @@ var Styles = {
 	position_extent: 'position + extent'
 }
 
+
+// show instructions
+$('#instructions').show(0);
 var experiment = new Experiment();
 experiment.makeExperiment();
-Statemachine.goToNextState();
 
 function answer(setIndex) {
 	if (Statemachine.state != States.stimulus && Statemachine.state != States.response)
@@ -20,6 +22,6 @@ function answer(setIndex) {
 
 	// record the response
 	experiment.answer(setIndex);
-
+	// go to 'feedback' state
 	Statemachine.goToState(States.feedback);
 }

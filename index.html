@@ -28,7 +28,29 @@
 </head>
 <body>
 <div class="container">
-
+    
+    <!-- Instructions -->
+    <div id="instructions" class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+            <br /><br /><br /><br />
+            <h2 class="row">Instructions</h2>
+            <br /><br /><br /><br />
+            <div class="row">
+                <p>blah blah blah</p>
+                <p>more blah</p>
+                <p>even more blah</p>
+                <br /><br /><br /><br />
+                <p>chart</p>
+                <p>chart</p>
+                <p>chart</p>
+                <br /><br /><br /><br />
+                <p>Use the arrow keys</p>
+                <p>Or click the buttons</p>
+                <br /><br /><br /><br /><br /><br /><br />
+            </div>
+            <button class="btn btn-lg btn-default row" onclick="Statemachine.goToNextState();">OK. Let's start.</button>
+        </div>
+    </div>
     <!-- Stimulus -->
     <div id="stimulus" class="row">
         <svg id="chart"></svg>
@@ -42,6 +64,13 @@
     <div id="feedback" class="row">
         <p id="feedback0"  class="text-left col-sm-offset-1 col-sm-3 col-xs-offset-0 col-xs-3 "></p>
         <p id="feedback1" class="text-right col-sm-offset-4 col-sm-3 col-xs-offset-6 col-xs-3 "></p>
+    </div>
+    <!-- Finished -->
+    <div id="finished" class="row">
+        <div class="col-sm-offset-1 col-sm-10">
+            <h2>Sending results to server</h2>
+            <p>please wait...</p>
+        </div>
     </div>
 
 </div> <!-- /container -->

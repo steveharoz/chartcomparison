@@ -15,7 +15,7 @@ var States = {
 }
 
 var Statemachine = new function () {
-	this.state = null;
+	this.state = States.instructions;
 	this.stimulusThread = null;
 
 	// choose the next state based on the current state
@@ -53,7 +53,8 @@ var Statemachine = new function () {
 		// cleanup
 		switch (previousState) {
 			case States.instructions:
-				// TODO: hide instructions
+				// hide instructions
+				$('#instructions').hide(0);
 				break;
 			case States.trialSetup:
 				// TODO: clean up delay thing

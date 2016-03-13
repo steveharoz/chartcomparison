@@ -1,7 +1,7 @@
 ﻿body {
 }
 
-.row { display: none; }
+.container>.row { display: none; }
 
 #feedback0, #feedback1 {
     font-size: 40px;
