@@ -11,6 +11,8 @@ function Staircase() {
 	this.reversalCount = 0;
 	this.previousDirection = 0;
 	this.directionHistory = [];
+	this.trials = [];
+	this.trialCount = 0; // # of trials already run
 
 	// subject responds either correctly or incorrectly
 	this.answer = function (isCorrect) {

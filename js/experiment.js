@@ -8,6 +8,8 @@ function Experiment() {
 	this.staircases = [];
 	this.stairIndex = -1;
 	this.currentTrial = new Trial();
+	this.trials = [];
+
 	this.makeExperiment = function () {
 		var counts = [[1,1]];
 		var styles = [Object.keys(Styles)[2]];
@@ -22,6 +24,11 @@ function Experiment() {
 			}
 		}
 	};
+
+	// get the current staircase
+	this.getCurrentStaircase = function() {
+		return this.staircases[this.stairIndex].staircase;
+	}
 
 	// convert the level of the staircase to a value
 	this.stairLevel2Value = function(index) {
@@ -41,13 +48,19 @@ function Experiment() {
 		// get the params for this trial
 		var stairparams = this.staircases[this.stairIndex];
 		// calculate the diff value from the stair 
-		var stairValue = this.stairLevel2Value(stairparams.staircase.valueIndex);
+		var stairValue = this.stairLevel2Value(this.getCurrentStaircase().valueIndex);
 		// make a trial from the this staircase
 		var trial = new Trial(
 			stairparams.count1, 
 			stairparams.count2,
 			stairValue,
 			stairparams.style);
+		// set trial indices
+		trial.index = this.trials.length;
+		trial.indexStair = this.getCurrentStaircase().trials.length;
+		// add trial to staircase and experiment history
+		this.trials.push(trial);
+		this.getCurrentStaircase().trials.push(trial);
 		// set it as the current trial
 		this.currentTrial = trial;
 		return trial;
@@ -74,7 +87,8 @@ function Trial(count1=6, count2=6, diff=90, style=Styles.position) {
 	this.variance2 = 90;
 	this.verticalOffsets1 = [];
 	this.verticalOffsets2 = [];
-	this.index = -1;
+	this.index = -1; // global trial index
+	this.indexStair = -1; // trial indix only within its staircase
 	this.style = style;
 
 	this.maxMean = Math.random() > 0.5;
