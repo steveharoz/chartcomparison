@@ -42,17 +42,8 @@ function initializeSVG() {
 	  .append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-	svg.append("g")
-		.attr("class", "x axis")
-		.append("line")
-			.attr("x1", 0).attr("x2", width)
-			.attr("y1", height+1).attr("y2", height+1);
-
-	svg.append("g")
-		.attr("class", "y axis")
-		.append("line")
-			.attr("x1", 0).attr("x2", 0)
-			.attr("y1", 0).attr("y2", height);
+	drawAxes();
+	drawFixation();
 }
 initializeSVG();
 
@@ -140,6 +131,35 @@ function showStimulus(duration_ms, callback) {
 		if( typeof(callback) == 'function' )
 			callback();
 	}, duration_ms);
+}
+
+
+function drawAxes() {
+	svg.append("g")
+		.attr("class", "x axis")
+		.append("line")
+			.attr("x1", 0).attr("x2", width)
+			.attr("y1", height+1).attr("y2", height+1);
+
+	svg.append("g")
+		.attr("class", "y axis")
+		.append("line")
+			.attr("x1", 0).attr("x2", 0)
+			.attr("y1", 0).attr("y2", height);
+}
+function drawFixation() {
+	var fixation = svg.append("g").attr("id", "fixation");
+	var fixationSize = 10;
+	fixation.append("line")
+		.attr("x1", width/2 - fixationSize)
+		.attr("x2", width/2 + fixationSize)
+		.attr("y1", height/2)
+		.attr("y2", height/2);
+	fixation.append("line")
+		.attr("x1", width/2)
+		.attr("x2", width/2)
+		.attr("y1", height/2 - fixationSize)
+		.attr("y2", height/2 + fixationSize);
 }
 
 function drawGuidesAndCheats(trial) {

@@ -86,6 +86,8 @@ var Statemachine = new function () {
 			case States.trialSetup:
 				// show the container for the stimulus (not the bars yet)
 				$('#stimulus').show(0);
+				// show the fixation
+				d3.select('#fixation').style("opacity", 1);
 				// TODO: do something in case of delay
 				// generate next trial
 				experiment.nextTrial();
@@ -97,6 +99,8 @@ var Statemachine = new function () {
 			case States.stimulus:
 				// ISI, then show stimulus+response
 				setTimeout(function () {
+					// hide fixation
+					d3.select('#fixation').style("opacity", 0);
 					// Show stimulus and response
 					showStimulus( experiment.currentTrial.presentationTime, Statemachine.goToNextState);
 					$('#response').show(0);

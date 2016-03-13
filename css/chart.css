@@ -4,7 +4,8 @@
 }
 
 .axis path,
-.axis line {
+.axis line,
+#fixation line{
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
@@ -23,4 +24,7 @@ svg:hover .cheat, svg:hover .guides line {visibility: visible;}
 
 .axis path, .axis line {
   stroke-width: 3px;
+}
+#fixation line {
+  stroke-width: 1px;
 }
