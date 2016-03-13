@@ -28,6 +28,11 @@ function Experiment() {
 		return this.staircases[this.stairIndex].staircase;
 	}
 
+	// determine if all staircases are finished
+	this.isFinished = function() {
+		return this.staircases.every(function(s) {return s.staircase.isComplete();});
+	}
+
 	// get the next trial
 	this.nextTrial = function() {
 		// go to next staircase
@@ -43,9 +48,8 @@ function Experiment() {
 		while(this.stairIndex < this.staircases.length && this.getCurrentStaircase().isComplete())
 			this.stairIndex++;
 		// if all done, finished
-		if (this.stairIndex >= this.staircases.length) {
-			Statemachine.goToState(States.finished);
-			return;
+		if (this.isFinished()) {
+			return null; // signifiy that it's finished
 		}
 
 		// get the params for this trial

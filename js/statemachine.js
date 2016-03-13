@@ -92,6 +92,11 @@ var Statemachine = new function () {
 				// TODO: do something in case of delay
 				// generate next trial
 				experiment.nextTrial();
+				// check if there are any trials left
+				if (experiment.isFinished()) {
+					Statemachine.goToState(States.finished);
+					return;
+				}
 				// render (but don't show) stimulus
 				draw(experiment.currentTrial);
 				// TODO: make this async
@@ -125,6 +130,12 @@ var Statemachine = new function () {
 				// TODO: stopping criteria
 				var continueToNextTrial = function () { Statemachine.goToState(States.trialSetup); };
 				setTimeout(continueToNextTrial, correct ? 500 : 2000);
+				break;
+			case States.finished:
+				// hide everything
+				$('.row').hide();
+				// show finished message
+				$('#finished').show();
 				break;
 			default:
 		}
