@@ -13,7 +13,7 @@ function Staircase() {
 	this.corrects = 0;
 	this.valueIndex = 13;
 	this.reversalCount = 0;
-	this.reversalMax = 2; // How man reversals until the staircase stops
+	this.reversalMax = 15; // How man reversals until the staircase stops
 	this.previousDirection = 0;
 	this.directionHistory = [];
 	this.trials = [];

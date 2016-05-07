@@ -9,18 +9,19 @@ function Experiment() {
 	this.trials = [];
 
 	this.makeExperiment = function () {
-		var counts = [[1,1], [6,6]];
-		var styles = [Object.keys(Styles)[2]];
+		var counts = [[1,1], [2,2], [6,6]];
+		var styles = [Styles.position, Styles.extent, Styles.position_extent];
 		for (var c in counts) {
 			for (var s in styles) {
 				this.staircases.push( {
 					staircase: new Staircase(), 
 					count1:counts[c][0], 
 					count2:counts[c][1], 
-					style: Styles[styles[s]]
+					style: styles[s]
 				});
 			}
 		}
+		d3.shuffle(this.staircases);
 	};
 
 	// get the current staircase
