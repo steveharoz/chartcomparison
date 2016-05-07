@@ -6,8 +6,8 @@ var margin = {top: 5, right: 5, bottom: 35, left: 5},
 
 var maxSetCount = 2;
 var maxBarCount = 6;
-var xMargin = 0.1; // space at the edges of the x axis
-var xCenterSpace = 0.1; // space between sets
+var xMargin = 0.05; // space at the edges of the x axis
+var xCenterSpace = 0.2; // space between sets
 var xSpaceBtwBars = 0.33; // proportion of bar width
 
 var svg;
@@ -94,14 +94,32 @@ function draw(trial) {
 					.attr("class", "bar bar1")
 					.attr("cx", getXPosition(maxBarCount - v - 1, 0) + getBarWidth() / 2)
 					.attr("cy", height - trial.values1[v])
-					.attr("r", getBarWidth() / 2);
+					.attr("r", getBarWidth() / 4);
 			}
 			for (var v = 0; v < trial.values2.length; v++) {
 				svg.append("circle")
 					.attr("class", "bar bar2")
 					.attr("cx", getXPosition(v, 1) + getBarWidth() / 2)
 					.attr("cy", height - trial.values2[v])
-					.attr("r", getBarWidth() / 2);
+					.attr("r", getBarWidth() / 4);
+			}
+			break;
+		case Styles.position_square:
+			for (var v = 0; v < trial.values1.length; v++) {
+				svg.append("rect")
+					.attr("class", "bar bar1")
+					.attr("x", getXPosition(maxBarCount - v - 1, 0))
+					.attr("width", getBarWidth())
+					.attr("y", height - trial.values1[v])
+					.attr("height", getBarWidth());
+			}
+			for (var v = 0; v < trial.values2.length; v++) {
+				svg.append("rect")
+					.attr("class", "bar bar2")
+					.attr("x", getXPosition(v, 1))
+					.attr("width", getBarWidth())
+					.attr("y", height - trial.values2[v])
+					.attr("height", getBarWidth());
 			}
 			break;
 		default:
@@ -181,8 +199,8 @@ function drawGuidesAndCheats(trial) {
 		.attr("y1", height - 10)
 		.attr("y2", height - 10);
 	guides.append("line")
-		.attr("x1", width * xCenterSpace)
-		.attr("x2", width * xCenterSpace)
+		.attr("x1", width * xMargin)
+		.attr("x2", width * xMargin)
 		.attr("y1", 0)
 		.attr("y2", height);
 	guides.append("line")
@@ -196,8 +214,8 @@ function drawGuidesAndCheats(trial) {
 		.attr("y1", 0)
 		.attr("y2", height);
 	guides.append("line")
-		.attr("x1", width * (1-xCenterSpace))
-		.attr("x2", width * (1-xCenterSpace))
+		.attr("x1", width * (1-xMargin))
+		.attr("x2", width * (1-xMargin))
 		.attr("y1", 0)
 		.attr("y2", height);
 
@@ -213,6 +231,6 @@ function drawGuidesAndCheats(trial) {
 		.attr("class", "cheat")
 		.attr("y", height + 20)
 		.style("font-size", 20)
-		.text("Max variance: set " + (trial.maxVariance+1) + " \u00A0\u00A0\u00A0\u00A0 Max single value: set " + (trial.maxValue+1) + " \u00A0\u00A0\u00A0\u00A0 Min single value: set " + (trial.minValue+1))
+		.text("Max mean: set " + (trial.maxMean+1) + " \u00A0\u00A0\u00A0\u00A0 Max variance: set " + (trial.maxVariance+1) + " \u00A0\u00A0\u00A0\u00A0 Max single value: set " + (trial.maxValue+1) + " \u00A0\u00A0\u00A0\u00A0 Min single value: set " + (trial.minValue+1))
 
 }

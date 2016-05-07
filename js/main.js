@@ -7,7 +7,8 @@
 var Styles = {
 	position:        'position',
 	extent:			 'extent',
-	position_extent: 'position + extent'
+	position_extent: 'position + extent',
+	position_square: 'position square'
 }
 
 
