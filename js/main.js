@@ -4,6 +4,9 @@
 /// <reference path="statemachine.js" />
 /// <reference path="_libraries/js/jquery-2.2.1.js" />
 
+var debug = window.location.href.toLowerCase().indexOf("debug") >= 0;
+
+
 var Styles = {
 	position:        'position',
 	extent:			 'extent',

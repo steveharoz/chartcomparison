@@ -125,7 +125,8 @@ function draw(trial) {
 		default:
 	}
 	hideStimulus();
-	drawGuidesAndCheats(trial);
+	if (debug)
+		drawGuidesAndCheats(trial);
 }
 
 
@@ -181,7 +182,6 @@ function drawFixation() {
 }
 
 function drawGuidesAndCheats(trial) {
-
 	var guides = svg.append("g").attr("class", "guides");
 	guides.append("line")
 		.attr("x1", 0)
