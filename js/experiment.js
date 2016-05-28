@@ -2,13 +2,15 @@
 /// <reference path="main.js" />
 /// <reference path="staircase.js" />
 
-function Experiment() {
-	this.staircases = [];
-	this.stairIndex = -1;
-	this.currentTrial = new Trial();
-	this.trials = [];
+class Experiment {
+	constructor() {
+		this.staircases = [];
+		this.stairIndex = -1;
+		this.currentTrial = new Trial();
+		this.trials = [];
+	}
 
-	this.makeExperiment = function () {
+	makeExperiment () {
 		var counts = [[1,1], [2,2], [6,6]];
 		var styles = [Styles.position, Styles.extent, Styles.position_extent];
 		for (var c in counts) {
@@ -22,20 +24,20 @@ function Experiment() {
 			}
 		}
 		d3.shuffle(this.staircases);
-	};
+	}
 
 	// get the current staircase
-	this.getCurrentStaircase = function() {
+	getCurrentStaircase() {
 		return this.staircases[this.stairIndex].staircase;
 	}
 
 	// determine if all staircases are finished
-	this.isFinished = function() {
+	isFinished() {
 		return this.staircases.every(function(s) {return s.staircase.isComplete();});
 	}
 
 	// get the next trial
-	this.nextTrial = function() {
+	nextTrial() {
 		// go to next staircase
 		this.stairIndex++;
 
@@ -72,45 +74,49 @@ function Experiment() {
 		// set it as the current trial
 		this.currentTrial = trial;
 		return trial;
-	};
+	}
 
 	// input an answer
-	this.answer = function(setIndex) {
+	answer(setIndex) {
 		this.currentTrial.answer(setIndex);
 		this.staircases[this.stairIndex].staircase.answer(this.currentTrial.correct);
-	};
+	}
 }
 
 
 
 
-function Trial(count1=6, count2=6, diff=90, style=Styles.position) {
-	this.barcount1 = count1;
-	this.barcount2 = count2;
-	this.baseValue = 200 + Math.random() * 100;
-	this.meanDiff = diff;
-	this.values1 = [];
-	this.values2 = [];
-	this.variance1 = 120;
-	this.variance2 = 90;
-	this.verticalOffsets1 = [];
-	this.verticalOffsets2 = [];
-	this.index = -1; // global trial index
-	this.indexStair = -1; // trial indix only within its staircase
-	this.style = style;
+class Trial {
+	constrcutor(count1=6, count2=6, diff=90, style=Styles.position) {
+		this.barcount1 = count1;
+		this.barcount2 = count2;
+		this.baseValue = 200 + Math.random() * 100;
+		this.meanDiff = diff;
+		this.values1 = [];
+		this.values2 = [];
+		this.variance1 = 120;
+		this.variance2 = 90;
+		this.verticalOffsets1 = [];
+		this.verticalOffsets2 = [];
+		this.index = -1; // global trial index
+		this.indexStair = -1; // trial indix only within its staircase
+		this.style = style;
 
-	this.maxMean = Math.random() > 0.5;
-	this.maxVariance = Math.random() > 0.5;
-	this.maxValue = Math.random() > 0.5;
-	this.minValue = Math.random() > 0.5;
+		this.maxMean = Math.random() > 0.5;
+		this.maxVariance = Math.random() > 0.5;
+		this.maxValue = Math.random() > 0.5;
+		this.minValue = Math.random() > 0.5;
 
-	this.presentationTime = 1500;
-	this.presentationTimeActual = 0;
-	this.response;
-	this.correct;
+		this.presentationTime = 1500;
+		this.presentationTimeActual = 0;
+		this.response;
+		this.correct;
+		
+		this.makeSets();
+	}
 
 	// make the values in the stimulus
-	this.makeSets = function() {
+	makeSets() {
 		var sets = make2Sets(
 			[this.barcount1, this.barcount2], 
 			[this.baseValue+this.meanDiff, this.baseValue], 
@@ -120,13 +126,12 @@ function Trial(count1=6, count2=6, diff=90, style=Styles.position) {
 		this.values2 = sets[1];
 		this.verticalOffsets1 = this.values1.map(() => Math.floor(Math.random()*151));
 		this.verticalOffsets2 = this.values2.map(() => Math.floor(Math.random()*151));
-	};
-	this.makeSets();
+	}
 
 	// record an answer
-	this.answer = function(setIndex) {
+	answer(setIndex) {
 		this.response = setIndex;
 		this.correct = setIndex == this.maxMean;
 		// TODO: record RT
-	};
+	}
 }
