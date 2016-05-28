@@ -97,6 +97,7 @@ class ArrayStaircase extends Staircase {
 	constructor(values = [0, 5, 10, 20, 30]) {
 		// call base class's constructor
 		super();
+		this.level = values.length - 1; // the current stair level
 		this.carryOn = false; //truncate
 		this.levelMax = values.length - 1;
 		this.levelMin = 0;
@@ -107,9 +108,11 @@ class ArrayStaircase extends Staircase {
 	// convert the level of the staircase to a value
 	stairLevel2Value() {
 		console.log('value index: ' + this.level);
-		// not really necessary with carryOn == false, but a good safety check
-		this.level = Math.min(Math.max(0, this.level), this.values.length-1); 
-		var value = this.values[this.level]
+		// not necessary with carryOn == false, but a good safety check
+		var level = this.level; 
+		if (this.carryOn) 
+			level = Math.min(Math.max(0, this.level), this.values.length-1); 
+		var value = this.values[level]
 		console.log('value: ' + value);
 		return value;
 	};
