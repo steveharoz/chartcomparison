@@ -14,7 +14,7 @@ function Experiment() {
 		for (var c in counts) {
 			for (var s in styles) {
 				this.staircases.push( {
-					staircase: new Staircase(), 
+					staircase: new ExponentialStaircase(), 
 					count1:counts[c][0], 
 					count2:counts[c][1], 
 					style: styles[s]
