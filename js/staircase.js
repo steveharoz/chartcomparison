@@ -15,6 +15,7 @@ class Staircase {
 		this.levelMin = -Infinity; // only matters for carryOn == false
 		this.carryOn = true; // when level hits the min/max, carry on or truncate?
 		this.reversalMax = 15; // How man reversals until the staircase stops
+		this.trialMax = 48; // How man trials until the staircase stops
 		// state variables:
 		this.directionHistory = [];
 		this.trials = []; // past trials
@@ -33,7 +34,8 @@ class Staircase {
 
 	// check if complete
 	isComplete() {
-		return this._reversalCount >= this.reversalMax;
+		return this._reversalCount >= this.reversalMax ||
+			   this.trials.length >= this.trialMax;
 	}
 
 	// subject responds either correctly or incorrectly
