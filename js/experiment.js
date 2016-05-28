@@ -87,7 +87,7 @@ class Experiment {
 
 
 class Trial {
-	constrcutor(count1=6, count2=6, diff=90, style=Styles.position) {
+	constructor(count1=6, count2=6, diff=90, style=Styles.position) {
 		this.barcount1 = count1;
 		this.barcount2 = count2;
 		this.baseValue = 200 + Math.random() * 100;
