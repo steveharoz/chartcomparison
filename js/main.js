@@ -2,7 +2,7 @@
 /// <reference path="staircase.js" />
 /// <reference path="render.js" />
 /// <reference path="statemachine.js" />
-/// <reference path="_libraries/js/jquery-2.2.1.js" />
+/// <reference path="../_libraries/js/jquery-2.2.1.js" />
 
 var debug = window.location.href.toLowerCase().indexOf("debug") >= 0;
 

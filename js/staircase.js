@@ -1,6 +1,6 @@
 ﻿/// <reference path="numbers.js" />
 /// <reference path="main.js" />
-/// <reference path="exoeriment.js" />
+/// <reference path="experiment.js" />
 
 var STAIR_BASE = 1.3;
 var STAIR_MIN = 0;
