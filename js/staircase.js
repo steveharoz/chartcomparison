@@ -8,17 +8,18 @@ var STAIR_MAX = 200;
 
 class Staircase {
 	constructor() {
+		// staircase properties:
 		this.upRule = 1;
 		this.downRule = 1;
-		this.valueIndex = 14;
-		this.valueIndexMax = Infinity; // only matters for carryOn == false
-		this.valueIndexMin = -Infinity; // only matters for carryOn == false
-		this.carryOn = true; // when valueIndex hits the min/max, carry on or truncate?
+		this.levelMax = Infinity; // only matters for carryOn == false
+		this.levelMin = -Infinity; // only matters for carryOn == false
+		this.carryOn = true; // when level hits the min/max, carry on or truncate?
 		this.reversalMax = 15; // How man reversals until the staircase stops
+		// state variables:
 		this.directionHistory = [];
-		this.trials = [];
-		this.trialCount = 0; // # of trials already run
-		// private properties
+		this.trials = []; // past trials
+		this.level = 14; // the current stair level
+		// private properties:
 		this._corrects = 0;
 		this._incorrects = 0;
 		this._previousDirection = 0;
@@ -53,16 +54,16 @@ class Staircase {
 			this.updateValue(+1);
 	};
 
-	// (private) update valueIndex, state, reversals
+	// (private) update level, state, reversals
 	updateValue(diff) {
 		// reset step's internal state (matters when the up/down rules > 1)
 		this._corrects = 0;
 		this._incorrects = 0;
-		// move the valueIndex up or down
-		this.valueIndex += diff;
-		// constrain valueIndex to bounds
+		// move the level up or down
+		this.level += diff;
+		// constrain level to bounds
 		if (!this.carryOn)
-			this.valueIndex = Math.min(Math.max(this.valueIndexMin, this.valueIndex), this.valueIndexMax);
+			this.level = Math.min(Math.max(this.levelMin, this.level), this.levelMax);
 		// check reversal
 		if (diff == -this._previousDirection)
 			this._reversalCount++;
@@ -82,7 +83,7 @@ class ExponentialStaircase extends Staircase {
 	
 	// convert the level of the staircase to a value
 	stairLevel2Value() {
-		var value = Math.pow(this.exponentBase, this.valueIndex);
+		var value = Math.pow(this.exponentBase, this.level);
 		value = Math.min(Math.max(STAIR_MIN, value), STAIR_MAX);
 		console.log(value);
 		return value;
@@ -95,18 +96,18 @@ class ArrayStaircase extends Staircase {
 		// call base class's constructor
 		super();
 		this.carryOn = false; //truncate
-		this.valueIndexMax = values.length - 1;
-		this.valueIndexMin = 0;
+		this.levelMax = values.length - 1;
+		this.levelMin = 0;
 		// variables specific to this class
 		this.values = values;
 	}
 	
 	// convert the level of the staircase to a value
 	stairLevel2Value() {
-		console.log('value index: ' + this.valueIndex);
+		console.log('value index: ' + this.level);
 		// not really necessary with carryOn == false, but a good safety check
-		this.valueIndex = Math.min(Math.max(0, this.valueIndex), this.values.length-1); 
-		var value = this.values[this.valueIndex]
+		this.level = Math.min(Math.max(0, this.level), this.values.length-1); 
+		var value = this.values[this.level]
 		console.log('value: ' + value);
 		return value;
 	};
