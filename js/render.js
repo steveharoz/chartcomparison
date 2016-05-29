@@ -7,8 +7,8 @@ var margin = {top: 5, right: 5, bottom: 35, left: 5},
 var maxSetCount = 2;
 var maxBarCount = 6;
 var xMargin = 0.05; // space at the edges of the x axis
-var xCenterSpace = 0.2; // space between sets
-var xSpaceBtwBars = 0.33; // proportion of bar width
+var xCenterSpace = 0.055; // space between sets
+var xSpaceBtwBars = 65/95; // proportion of bar width
 
 var svg;
 
