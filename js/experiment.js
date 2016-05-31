@@ -109,11 +109,11 @@ class Trial {
 		this.maxValue = Math.random() > 0.5;
 		this.minValue = Math.random() > 0.5;
 
-		this.presentationTime = debug ? 1500 : 5000;
+		this.presentationTime = debug ? 5000 : 2000;
 		this.response;
 		this.correct;
 		this.RT;
-		this.maxRT = 2000;
+		this.maxRT = this.presentationTime;
 		
 		this.makeSets();
 	}
