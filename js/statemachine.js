@@ -117,6 +117,8 @@ var Statemachine = new function () {
 				// show stimulus+response
 				// hide fixation
 				d3.select('#fixation').style("opacity", 0);
+				// start RT timer
+				experiment.currentTrial.RT = -performance.now();
 				// Show stimulus and response
 				showStimulus( experiment.currentTrial.presentationTime, Statemachine.goToNextState);
 				$('#response').show(0);

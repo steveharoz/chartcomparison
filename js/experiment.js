@@ -132,6 +132,7 @@ class Trial {
 	answer(setIndex) {
 		this.response = setIndex;
 		this.correct = setIndex == this.maxMean;
-		// TODO: record RT
+		// record RT
+		this.RT += performance.now();
 	}
 }
