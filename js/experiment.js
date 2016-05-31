@@ -17,8 +17,10 @@ class Experiment {
 		var styles = [Styles.position, Styles.extent, Styles.position_extent];
 		for (var c in counts) {
 			for (var s in styles) {
+				var staircase = new ArrayStaircase([1,2,4,6,8,11,14,18,25,34,45,60]); 
+				staircase.trialMax = counts[c][0] == 1 ? 26 : 50;
 				this.staircases.push( {
-					staircase: new ArrayStaircase([1,2,4,6,8,11,14,18,25,34,45,60]), 
+					staircase: staircase, 
 					count1:counts[c][0], 
 					count2:counts[c][1], 
 					style: styles[s]
