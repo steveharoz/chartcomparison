@@ -7,7 +7,7 @@ var States = {
 	instructions: 'instructions',
 	blockIntro:	  'blockIntro', // not used yet
 	trialSetup:	  'trialSetup',
-	isi:		  'isi', // not used yet
+	isi:		  'isi',
 	stimulus:	  'stimulus',
 	response:	  'response',
 	feedback:     'feeback',
@@ -29,6 +29,9 @@ var Statemachine = new function () {
 				nextState = States.trialSetup;
 				break;
 			case States.trialSetup:
+				nextState = States.isi;
+				break;
+			case States.isi:
 				nextState = States.stimulus;
 				break;
 			case States.stimulus:
@@ -60,6 +63,8 @@ var Statemachine = new function () {
 				// TODO: clean up delay thing
 				// reset feedback
 				$('#feedback0, #feedback1').text('');
+				break;
+			case States.isi:
 				break;
 			case States.stimulus:
 				clearTimeout(Statemachine.stimulusThread);
@@ -102,15 +107,19 @@ var Statemachine = new function () {
 				// TODO: make this async
 				Statemachine.goToNextState();
 				break;
-			case States.stimulus:
-				// ISI, then show stimulus+response
+			case States.isi:
+				// pause before stimulus
 				setTimeout(function () {
-					// hide fixation
-					d3.select('#fixation').style("opacity", 0);
-					// Show stimulus and response
-					showStimulus( experiment.currentTrial.presentationTime, Statemachine.goToNextState);
-					$('#response').show(0);
+					Statemachine.goToNextState();
 				}, ISI);
+				break;
+			case States.stimulus:
+				// show stimulus+response
+				// hide fixation
+				d3.select('#fixation').style("opacity", 0);
+				// Show stimulus and response
+				showStimulus( experiment.currentTrial.presentationTime, Statemachine.goToNextState);
+				$('#response').show(0);
 				break;
 			case States.response:
 				// hide stimulus

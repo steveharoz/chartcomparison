@@ -21,8 +21,10 @@ var experiment = new Experiment();
 experiment.makeExperiment();
 
 function answer(setIndex) {
-	if (Statemachine.state != States.stimulus && Statemachine.state != States.response)
+	if (Statemachine.state != States.stimulus && Statemachine.state != States.response) {
+		console.log("Can't respond in state: " + Statemachine.state);
 		return;
+	}
 
 	// record the response
 	experiment.answer(setIndex);
