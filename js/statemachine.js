@@ -150,8 +150,8 @@ var Statemachine = new function () {
 			case States.finished:
 				// hide everything
 				$('.row').hide();
-				// show finished message
-				$('#finished').show();
+				// upload and show message
+				send();
 				break;
 			default:
 		}

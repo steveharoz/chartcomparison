@@ -61,13 +61,19 @@
         <p id="feedback1" class="text-center col-sm-3"></p>
     </div>
     <!-- Finished -->
-    <div id="finished" class="row">
+    <div id="sending" class="row">
         <div class="col-sm-offset-1 col-sm-10">
-            <h2>Sending results to server</h2>
-            <p>please wait...</p>
+            <h2>Uploading results<span class="animate">...</span></h2>
+            <p>Do not close the browser until the upload is complete.</p>
         </div>
     </div>
-
+    <div id="finished" class="row">
+        <div class="col-md-10 col-md-offset-1 col-xs-12">
+            <h2>All done! Thank you!</h2>
+            <p>Copy this code into the Mechanical Turk survey: <span id="resultCode">0000</span></p>
+            <!--<p>Please give this number to the experimenter: <span id="resultCode">0258</span></p>-->
+        </div>
+    </div>
 </div> <!-- /container -->
 
 <!-- Bootstrap core JavaScript
@@ -80,6 +86,7 @@
 <script src="_libraries/js/d3.js"></script>
 <script src="js/numbers.js"></script>
 <script src="js/staircase.js"></script>
+<script src="js/submit.js"></script>
 <script src="js/experiment.js"></script>
 <script src="js/render.js"></script>
 <script src="js/statemachine.js"></script>

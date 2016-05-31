@@ -6,8 +6,10 @@ class Experiment {
 	constructor() {
 		this.staircases = [];
 		this.stairIndex = -1;
+		this.subjectID = Math.floor(Math.random() * 10000);
 		this.currentTrial = new Trial();
 		this.trials = [];
+		this.date = new Date().toISOString().slice(0, 10);
 	}
 
 	makeExperiment () {
