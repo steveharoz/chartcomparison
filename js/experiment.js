@@ -111,6 +111,7 @@ class Trial {
 		this.response;
 		this.correct;
 		this.RT;
+		this.maxRT = 2000;
 		
 		this.makeSets();
 	}

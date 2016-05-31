@@ -6,3 +6,7 @@
 #feedback0, #feedback1 {
     font-size: 40px;
 }
+#feedbackSlow {
+    font-size: 30px;
+    color: darkred;
+}

@@ -63,6 +63,7 @@ var Statemachine = new function () {
 				// TODO: clean up delay thing
 				// reset feedback
 				$('#feedback0, #feedback1').text('');
+				$('#feedbackSlow').css('visibility', 'hidden');
 				break;
 			case States.isi:
 				break;
@@ -135,11 +136,15 @@ var Statemachine = new function () {
 				var correct = experiment.currentTrial.correct;
 				var symbol = correct ? '✓' : experiment.currentTrial.response ? 'Incorrect ✘' : '✘ Incorrect';
 				$('#feedback' + experiment.currentTrial.response).text(symbol);
+				// RT feedback
+				if (experiment.currentTrial.RT > experiment.currentTrial.maxRT)
+					$('#feedbackSlow').css('visibility', 'visible');
 				// show feedback
 				$('#feedback').show(0);
 				// wait, then continue
 				// TODO: stopping criteria
 				var continueToNextTrial = function () { Statemachine.goToState(States.trialSetup); };
+				correct = correct && experiment.currentTrial.RT <= experiment.currentTrial.maxRT
 				setTimeout(continueToNextTrial, correct ? 500 : 2000);
 				break;
 			case States.finished:
