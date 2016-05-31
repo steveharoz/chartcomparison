@@ -10,3 +10,20 @@
     font-size: 30px;
     color: darkred;
 }
+
+.intro h1 { margin-bottom: 2em; }
+.intro p { font-size: 20px; }
+.intro button { margin-top: 2em; }
+.introImage {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 20px;
+    margin-top: 50px;
+    padding: 10px;
+    width: 100%;
+}
+
+
+#resultCode {
+    font-size: 100px;
+}
