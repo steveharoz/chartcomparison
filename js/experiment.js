@@ -75,6 +75,8 @@ class Experiment {
 		// whether to show feedback after response
 		var roundsOfFeedback = 1;
 		trial.feedback = trial.indexStair < roundsOfFeedback;
+		if (trial.indexStair < roundsOfFeedback)
+			trial.presentationTime = 60 * 60 * 1000;
 		// add trial to staircase and experiment history
 		this.trials.push(trial);
 		this.getCurrentStaircase().trials.push(trial);
