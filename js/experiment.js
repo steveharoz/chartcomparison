@@ -86,7 +86,9 @@ class Experiment {
 	// input an answer
 	answer(setIndex) {
 		this.currentTrial.answer(setIndex);
-		this.staircases[this.stairIndex].staircase.answer(this.currentTrial.correct);
+		// must be correct AND under the time limit for the staircase to consider it
+		var isCorrect = correct && this.currentTrial.RT <= this.currentTrial.maxRT;
+		this.staircases[this.stairIndex].staircase.answer(isCorrect);
 	}
 }
 
