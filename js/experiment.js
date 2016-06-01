@@ -13,8 +13,8 @@ class Experiment {
 	}
 
 	makeExperiment () {
-		var counts = [[1,1], [2,2], [6,6]];
-		var styles = [Styles.position, Styles.extent, Styles.position_extent];
+		var counts = debug ? [[6,6]] : [[1,1], [2,2], [6,6]];
+		var styles = debug ? [Styles.extent] : [Styles.position, Styles.extent, Styles.position_extent];
 		for (var c in counts) {
 			for (var s in styles) {
 				var staircase = new ArrayStaircase([1,2,4,6,8,11,14,18,25,34,45,60]); 
