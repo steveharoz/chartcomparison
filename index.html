@@ -38,7 +38,7 @@
             <p>There are 1-6 cars for each team.</p>
             <p>Your task is to indicate which team <strong>on average</strong> took longer.</p>
             <p>The experiment will take about 30 minutes.</p>
-            <button id="start" type="button" class="btn btn-lg btn-default" onclick="$('.intro').hide().promise().done(function(){$('.intro2').show();});">I understand.</button>
+            <button id="start" type="button" class="btn btn-lg btn-default" onclick="$('.intro').hide().promise().done(function(){if (debug) Statemachine.goToNextState(); else $('.intro2').show();});">I understand.</button>
         </div>
     </div>
     <div class="row intro intro2">
@@ -177,7 +177,6 @@
             <p>The task will become more challenging over time.</p>
             <p>The first several questions will let you know if you were right or wrong.</p>
             <p>Just try your best.</p>
-            <p>&nbsp;</p>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
