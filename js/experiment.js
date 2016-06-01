@@ -18,7 +18,7 @@ class Experiment {
 		for (var c in counts) {
 			for (var s in styles) {
 				var staircase = new ArrayStaircase([1,2,4,6,8,11,14,18,25,34,45,60]); 
-				staircase.trialMax = counts[c][0] == 1 ? 26 : 50;
+				staircase.trialMax = counts[c][0] == 1 ? 25 : 49;
 				this.staircases.push( {
 					staircase: staircase, 
 					count1:counts[c][0], 
@@ -73,8 +73,8 @@ class Experiment {
 		trial.index = this.trials.length;
 		trial.indexStair = this.getCurrentStaircase().trials.length;
 		// whether to show feedback after response
-		var roundsOfFeedback = 2;
-		trial.feedback = trial.indexStair <= roundsOfFeedback;
+		var roundsOfFeedback = 1;
+		trial.feedback = trial.indexStair < roundsOfFeedback;
 		// add trial to staircase and experiment history
 		this.trials.push(trial);
 		this.getCurrentStaircase().trials.push(trial);
