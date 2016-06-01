@@ -135,7 +135,8 @@ var Statemachine = new function () {
 				// set feedback
 				var correct = experiment.currentTrial.correct;
 				var symbol = correct ? '✓' : experiment.currentTrial.response ? 'Incorrect ✘' : '✘ Incorrect';
-				$('#feedback' + experiment.currentTrial.response).text(symbol);
+				if (experiment.currentTrial.feedback)
+					$('#feedback' + experiment.currentTrial.response).text(symbol);
 				// RT feedback
 				if (experiment.currentTrial.RT > experiment.currentTrial.maxRT)
 					$('#feedbackSlow').css('visibility', 'visible');
@@ -144,8 +145,10 @@ var Statemachine = new function () {
 				// wait, then continue
 				// TODO: stopping criteria
 				var continueToNextTrial = function () { Statemachine.goToState(States.trialSetup); };
-				correct = correct && experiment.currentTrial.RT <= experiment.currentTrial.maxRT
-				setTimeout(continueToNextTrial, correct ? 500 : 2000);
+				var feedbackShown = 
+					(!correct && experiment.currentTrial.feedback) || 
+					experiment.currentTrial.RT > experiment.currentTrial.maxRT;
+				setTimeout(continueToNextTrial, feedbackShown ? 2000 : 500);
 				break;
 			case States.finished:
 				// hide everything

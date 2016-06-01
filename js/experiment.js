@@ -72,6 +72,9 @@ class Experiment {
 		// set trial indices
 		trial.index = this.trials.length;
 		trial.indexStair = this.getCurrentStaircase().trials.length;
+		// whether to show feedback after response
+		var roundsOfFeedback = 2;
+		trial.feedback = trial.indexStair <= roundsOfFeedback;
 		// add trial to staircase and experiment history
 		this.trials.push(trial);
 		this.getCurrentStaircase().trials.push(trial);
@@ -116,6 +119,7 @@ class Trial {
 		this.correct;
 		this.RT;
 		this.maxRT = this.presentationTime;
+		this.feedback = true;
 		
 		this.makeSets();
 	}
