@@ -3,15 +3,22 @@ function send() {
 	sendJSON(experiment, showFinished);
 }
 function showFinished() {
-	$('#finished').fadeIn();
+	$('#sending').fadeOut().promise().done(() => $('#finished').fadeIn());
 	$('#resultCode').text(experiment.subjectID);
 }
 
 function sendJSON(exp, callback) {
+    // shallow copy
     exp = jQuery.extend({}, exp);
+    // drop unneeded properties
     delete exp.staircases;
     delete exp.stairIndex;
     delete exp.currentTrial;
+    
+    // get early accuracy estimate
+    var accuracy = exp.trials.slice(0, 18).map( trial => trial.correct );
+    accuracy = d3.sum(accuracy) / accuracy.length;
+    accuracy = Math.round(accuracy * 100);
     
 	// show size of block data
 	console.log("block size (bytes): " + encodeURIComponent(JSON.stringify(exp, null, " ")).length);
@@ -23,6 +30,7 @@ function sendJSON(exp, callback) {
 		.post('study=' + encodeURIComponent(studyName) + '&' +
 			'subjectID=' + encodeURIComponent(exp.subjectID) + '&' +
 			'date=' + encodeURIComponent(exp.date) + '&' +
+			'accuracy=' + encodeURIComponent(accuracy) + '&' +
 			'data=' + encodeURIComponent(JSON.stringify(exp, null, " ")))
 		.on('error', function (error) {
 			console.log('ERROR: ' + error);
