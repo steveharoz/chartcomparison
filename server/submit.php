@@ -12,7 +12,7 @@ if (!file_exists($dir)) {
 }
 echo realpath($dir);
 
-$fh = fopen($dir . "/subj-" . $subjectID . "-" . " date-" . $date . ".json", 'w') or die("Error opening file!");
+$fh = fopen($dir . "/subj_" . $subjectID . "-" . " date_" . $date . ".json", 'w') or die("Error opening file!");
 fwrite($fh, $data);
 fclose($fh);
 
