@@ -19,6 +19,7 @@ class Experiment {
 			for (var s in styles) {
 				var staircase = new ArrayStaircase([1,2,4,6,8,11,14,18,25,34,45,60]); 
 				staircase.trialMax = counts[c][0] == 1 ? 25 : 49;
+				staircase.trialMax /= debug ? 12 : 1;
 				this.staircases.push( {
 					staircase: staircase, 
 					count1:counts[c][0], 
