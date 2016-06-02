@@ -8,9 +8,10 @@ function showFinished() {
 }
 
 function sendJSON(exp, callback) {
-    exp.staircases = null;
-    exp.stairIndex = null;
-    exp.currentTrial = null;
+    exp = jQuery.extend({}, exp);
+    delete exp.staircases;
+    delete exp.stairIndex;
+    delete exp.currentTrial;
     
 	// show size of block data
 	console.log("block size (bytes): " + encodeURIComponent(JSON.stringify(exp, null, " ")).length);

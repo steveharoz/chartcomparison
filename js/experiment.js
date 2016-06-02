@@ -8,8 +8,8 @@ class Experiment {
 		this.stairIndex = -1;
 		this.subjectID = Math.floor(Math.random() * 10000);
 		this.currentTrial = new Trial();
-		this.trials = [];
 		this.date = new Date().toISOString().slice(0, 10);
+		this.trials = [];
 	}
 
 	makeExperiment () {
@@ -102,7 +102,7 @@ class Trial {
 	constructor(count1=6, count2=6, diff=90, style=Styles.position) {
 		this.barcount1 = count1;
 		this.barcount2 = count2;
-		this.baseValue = 200 + Math.random() * 100;
+		this.baseValue = 200 + Math.round(Math.random() * 100);
 		this.meanDiff = diff;
 		this.values1 = [];
 		this.values2 = [];
@@ -136,8 +136,8 @@ class Trial {
 			[this.baseValue+this.meanDiff, this.baseValue], 
 			[this.variance1, this.variance2], 
 			this.maxMean, this.maxVariance, this.maxValue, this.minValue);
-		this.values1 = sets[0];
-		this.values2 = sets[1];
+		this.values1 = sets[0].map( x => d3.round(x,2) );
+		this.values2 = sets[1].map( x => d3.round(x,2) );
 		this.verticalOffsets1 = this.values1.map(() => Math.floor(Math.random()*151));
 		this.verticalOffsets2 = this.values2.map(() => Math.floor(Math.random()*151));
 	}
@@ -148,5 +148,6 @@ class Trial {
 		this.correct = setIndex == this.maxMean;
 		// record RT
 		this.RT += performance.now();
+		this.RT = Math.round(this.RT);
 	}
 }
