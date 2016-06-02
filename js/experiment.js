@@ -7,6 +7,8 @@ class Experiment {
 		this.staircases = [];
 		this.stairIndex = -1;
 		this.subjectID = (debug ? "DEBUG" : "") + Math.floor(Math.random() * 100000);
+		this.screenResolution = '' + screen.availWidth + 'x' + screen.availHeight;
+		this.userAgent = navigator.userAgent;
 		this.currentTrial = new Trial();
 		this.date = new Date().toISOString().slice(0, 10);
 		this.trials = [];
