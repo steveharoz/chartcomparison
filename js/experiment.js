@@ -49,15 +49,19 @@ class Experiment {
 		// go to next staircase
 		this.stairIndex++;
 
+		// if staircase is complete, go to the next one
+		while(this.stairIndex < this.staircases.length && this.getCurrentStaircase().isComplete())
+			this.stairIndex++;
+
 		// if finished with this round, restart and shuffle
 		if (this.stairIndex >= this.staircases.length) {
 			this.stairIndex = 0;
 			d3.shuffle(this.staircases);
-		}
-
 		// if staircase is complete, go to the next one
 		while(this.stairIndex < this.staircases.length && this.getCurrentStaircase().isComplete())
 			this.stairIndex++;
+		}
+		
 		// if all done, finished
 		if (this.isFinished()) {
 			return null; // signifiy that it's finished
