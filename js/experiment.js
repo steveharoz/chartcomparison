@@ -6,7 +6,7 @@ class Experiment {
 	constructor() {
 		this.staircases = [];
 		this.stairIndex = -1;
-		this.subjectID = Math.floor(Math.random() * 10000);
+		this.subjectID = (debug ? "DEBUG" : "") + Math.floor(Math.random() * 100000);
 		this.currentTrial = new Trial();
 		this.date = new Date().toISOString().slice(0, 10);
 		this.trials = [];
@@ -19,7 +19,8 @@ class Experiment {
 			for (var s in styles) {
 				var staircase = new ArrayStaircase([1,2,4,6,8,11,14,18,25,34,45,60]); 
 				staircase.trialMax = counts[c][0] == 1 ? 25 : 49;
-				staircase.trialMax /= debug ? 12 : 1;
+				staircase.trialMax /= debug ? 24 : 1;
+				staircase.trialMax = Math.floor(staircase.trialMax);
 				this.staircases.push( {
 					staircase: staircase, 
 					count1:counts[c][0], 

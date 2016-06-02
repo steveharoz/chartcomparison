@@ -35,7 +35,7 @@ class Staircase {
 	// check if complete
 	isComplete() {
 		return this._reversalCount >= this.reversalMax ||
-			   this.trials.length >= this.trialMax;
+			   this.trials.length >= Math.floor(this.trialMax);
 	}
 
 	// subject responds either correctly or incorrectly

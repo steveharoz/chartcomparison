@@ -91,6 +91,11 @@ var Statemachine = new function () {
 				Statemachine.goToState(States.trialSetup);
 				break;
 			case States.trialSetup:
+				// check if there are any trials left
+				if (experiment.isFinished()) {
+					Statemachine.goToState(States.finished);
+					return;
+				}
 				// show the container for the stimulus (not the bars yet)
 				$('#stimulus').show(0);
 				// show the fixation
@@ -98,11 +103,6 @@ var Statemachine = new function () {
 				// TODO: do something in case of delay
 				// generate next trial
 				experiment.nextTrial();
-				// check if there are any trials left
-				if (experiment.isFinished()) {
-					Statemachine.goToState(States.finished);
-					return;
-				}
 				// render (but don't show) stimulus
 				draw(experiment.currentTrial);
 				// TODO: make this async
