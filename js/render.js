@@ -44,6 +44,7 @@ function initializeSVG() {
 
 	drawAxes();
 	drawFixation();
+	drawPressToContinue();
 }
 initializeSVG();
 
@@ -183,6 +184,16 @@ function drawFixation() {
 		.attr("x2", width/2)
 		.attr("y1", height/2 - fixationSize)
 		.attr("y2", height/2 + fixationSize);
+}
+function drawPressToContinue() {
+	var pressToContinue = svg.append("text")
+		.attr("id", "pressToContinue")
+		.text("Press left or right to continue.")
+		.attr("x", "50%")
+		.attr("y", "50%")
+		.attr("text-anchor", "middle")
+		.attr("dy", "-.5em")
+		.attr("font-size", 30);
 }
 
 function drawGuidesAndCheats(trial) {
