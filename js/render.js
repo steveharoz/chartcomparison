@@ -50,12 +50,16 @@ initializeSVG();
 // render and hide the bars
 function draw(trial) {
 	svg.selectAll(".bar, .cheat, .guides").remove();
+	
+	var styles = trial.colorLeft ?
+		["bar1", "bar2"] :
+		["bar2", "bar1"];
 
 	switch (trial.style) {
 		case Styles.position_extent:
 			for (var v = 0; v < trial.values1.length; v++) {
 				svg.append("rect")
-					.attr("class", "bar bar1")
+					.attr("class", "bar " + styles[0])
 					.attr("x", getXPosition(maxBarCount - v - 1, 0))
 					.attr("width", getBarWidth())
 					.attr("y", height - trial.values1[v])
@@ -63,7 +67,7 @@ function draw(trial) {
 			}
 			for (var v = 0; v < trial.values2.length; v++) {
 				svg.append("rect")
-					.attr("class", "bar bar2")
+					.attr("class", "bar " + styles[1])
 					.attr("x", getXPosition(v, 1))
 					.attr("width", getBarWidth())
 					.attr("y", height - trial.values2[v])
@@ -73,7 +77,7 @@ function draw(trial) {
 		case Styles.extent:
 			for (var v = 0; v < trial.values1.length; v++) {
 				svg.append("rect")
-					.attr("class", "bar bar1")
+					.attr("class", "bar " + styles[0])
 					.attr("x", getXPosition(maxBarCount - v - 1, 0))
 					.attr("width", getBarWidth())
 					.attr("y", height - trial.values1[v] - trial.verticalOffsets1[v])
@@ -81,7 +85,7 @@ function draw(trial) {
 			}
 			for (var v = 0; v < trial.values2.length; v++) {
 				svg.append("rect")
-					.attr("class", "bar bar2")
+					.attr("class", "bar " + styles[1])
 					.attr("x", getXPosition(v, 1))
 					.attr("width", getBarWidth())
 					.attr("y", height - trial.values2[v] - trial.verticalOffsets2[v])
@@ -91,14 +95,14 @@ function draw(trial) {
 		case Styles.position:
 			for (var v = 0; v < trial.values1.length; v++) {
 				svg.append("circle")
-					.attr("class", "bar bar1")
+					.attr("class", "bar " + styles[0])
 					.attr("cx", getXPosition(maxBarCount - v - 1, 0) + getBarWidth() / 2)
 					.attr("cy", height - trial.values1[v])
 					.attr("r", getBarWidth() / 4);
 			}
 			for (var v = 0; v < trial.values2.length; v++) {
 				svg.append("circle")
-					.attr("class", "bar bar2")
+					.attr("class", "bar " + styles[1])
 					.attr("cx", getXPosition(v, 1) + getBarWidth() / 2)
 					.attr("cy", height - trial.values2[v])
 					.attr("r", getBarWidth() / 4);
@@ -107,7 +111,7 @@ function draw(trial) {
 		case Styles.position_square:
 			for (var v = 0; v < trial.values1.length; v++) {
 				svg.append("rect")
-					.attr("class", "bar bar1")
+					.attr("class", "bar " + styles[0])
 					.attr("x", getXPosition(maxBarCount - v - 1, 0))
 					.attr("width", getBarWidth())
 					.attr("y", height - trial.values1[v])
@@ -115,7 +119,7 @@ function draw(trial) {
 			}
 			for (var v = 0; v < trial.values2.length; v++) {
 				svg.append("rect")
-					.attr("class", "bar bar2")
+					.attr("class", "bar " + styles[1])
 					.attr("x", getXPosition(v, 1))
 					.attr("width", getBarWidth())
 					.attr("y", height - trial.values2[v])

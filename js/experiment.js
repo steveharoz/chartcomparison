@@ -110,6 +110,7 @@ class Trial {
 		this.barcount1 = count1;
 		this.barcount2 = count2;
 		this.baseValue = 200 + Math.round(Math.random() * 100);
+		this.colorLeft = Math.random() > 0.5;
 		this.meanDiff = diff;
 		this.values1 = [];
 		this.values2 = [];
