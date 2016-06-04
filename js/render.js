@@ -190,7 +190,7 @@ function drawFixation() {
 function drawPressToContinue() {
 	var pressToContinue = svg.append("text")
 		.attr("id", "pressToContinue")
-		.text("Press left or right to continue.")
+		.text("Press left or right for the next round")
 		.attr("x", "50%")
 		.attr("y", "50%")
 		.attr("text-anchor", "middle")

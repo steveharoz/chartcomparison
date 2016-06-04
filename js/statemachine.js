@@ -2,6 +2,7 @@
 /// <reference path="experiment.js" />
 
 var ISI = 500;
+var PRESS_KEY_EVERY_N_TRIALS = 20;
 
 var States = {
 	instructions: 'instructions',
@@ -72,6 +73,8 @@ var Statemachine = new function () {
 			case States.pause:
 				// hide presstocontinue message
 				$('#pressToContinue').hide(0);
+				// hide response
+				$('#response').hide(0);
 				break;
 			case States.isi:
 				break;
@@ -115,8 +118,13 @@ var Statemachine = new function () {
 				Statemachine.goToNextState();
 				break;
 			case States.pause:
+				if (experiment.trials.length % PRESS_KEY_EVERY_N_TRIALS != 1) {
+					Statemachine.goToNextState();
+					return;
+				}
 				// press a key to start trial
-				$('#pressToContinue').show(0);
+				$('#pressToContinue').show();
+				$('#response').show();
 				break;
 			case States.isi:
 				// show the fixation
