@@ -184,6 +184,8 @@ function drawFixation() {
 		.attr("x2", width/2)
 		.attr("y1", height/2 - fixationSize)
 		.attr("y2", height/2 + fixationSize);
+	// hide fixation
+	d3.select('#fixation').style("opacity", 0);
 }
 function drawPressToContinue() {
 	var pressToContinue = svg.append("text")
@@ -194,6 +196,7 @@ function drawPressToContinue() {
 		.attr("text-anchor", "middle")
 		.attr("dy", "-.5em")
 		.attr("font-size", 30);
+	$('#pressToContinue').hide(0);
 }
 
 function drawGuidesAndCheats(trial) {

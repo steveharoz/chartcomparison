@@ -7,6 +7,7 @@ var States = {
 	instructions: 'instructions',
 	blockIntro:	  'blockIntro', // not used yet
 	trialSetup:	  'trialSetup',
+	pause:		  'pause',
 	isi:		  'isi',
 	stimulus:	  'stimulus',
 	response:	  'response',
@@ -29,6 +30,9 @@ var Statemachine = new function () {
 				nextState = States.trialSetup;
 				break;
 			case States.trialSetup:
+				nextState = States.pause;
+				break;
+			case States.pause:
 				nextState = States.isi;
 				break;
 			case States.isi:
@@ -65,6 +69,10 @@ var Statemachine = new function () {
 				$('#feedback0, #feedback1').text('');
 				$('#feedbackSlow').css('visibility', 'hidden');
 				break;
+			case States.pause:
+				// hide presstocontinue message
+				$('#pressToContinue').hide(0);
+				break;
 			case States.isi:
 				break;
 			case States.stimulus:
@@ -98,8 +106,6 @@ var Statemachine = new function () {
 				}
 				// show the container for the stimulus (not the bars yet)
 				$('#stimulus').show(0);
-				// show the fixation
-				d3.select('#fixation').style("opacity", 1);
 				// TODO: do something in case of delay
 				// generate next trial
 				experiment.nextTrial();
@@ -108,7 +114,13 @@ var Statemachine = new function () {
 				// TODO: make this async
 				Statemachine.goToNextState();
 				break;
+			case States.pause:
+				// press a key to start trial
+				$('#pressToContinue').show(0);
+				break;
 			case States.isi:
+				// show the fixation
+				d3.select('#fixation').style("opacity", 1);
 				// pause before stimulus
 				setTimeout(function () {
 					Statemachine.goToNextState();
