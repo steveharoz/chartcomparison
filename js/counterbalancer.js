@@ -11,27 +11,44 @@ class CounterBalancer {
 	}
 }
 
+function allCombinations(variables) {
+	// get all of the variable names
+	var keys = Object.keys(variables);
 
-
-
-
-
-function allCombinations(arr) {
-	if (arr.length <= 1) {
-		return arr.map( x => [x] ); // doesn't work
-	} else if (arr.length == 2) {
-		var combinations = [];
-		for (var i = 0; i < arr[0].length; i++) {
-			for (var j = 0; j < arr[1].length; j++) {
-				var temp = Array.isArray(arr[1][j]) ? arr[1][j].slice() : [arr[1][j]];
-				temp.unshift(arr[0][i]);
-				combinations.push(temp);
+	// if empty
+	if (keys.length == 0)
+		return [];
+	// extract the first set
+	var combinations = variables[keys[0]].map( v => { 
+		var o = new Object(); 
+		o[keys[0]]=v; return o; 
+	} );
+	delete variables[keys[0]];
+	// go through each remaining variable
+	while (Object.keys(variables).length > 0) {
+		var key = Object.keys(variables)[0];
+		var values = variables[key];
+		delete variables[key];
+		// merge each value with existing combinations
+		var oldCombos = combinations;
+		combinations = [];
+		for (var i = 0; i < values.length; i++) {
+			for (var j = 0; j < oldCombos.length; j++) {
+				var o = new $.extend({}, oldCombos[j]);
+				o[key] = values[i];
+				combinations.push(o);
 			}
 		}
-		return combinations;
-	} else {
-		return allCombinations([ arr[0], allCombinations(arr.slice(1)) ]);
 	}
+	return combinations;
 }
-var allArrays = [['a', 'b'], [1, 2], ['red', 'blue', 'green']];
-var temp = allCombinations(allArrays);
+
+
+var allVariables = {
+	letter: ['a', 'b'], 
+	number: [1, 2], 
+	color: ['red', 'blue', 'green']
+};
+
+var temp = allCombinations(allVariables);
+console.log(JSON.stringify(temp));
