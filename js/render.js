@@ -249,6 +249,6 @@ function drawGuidesAndCheats(trial) {
 		.attr("class", "cheat")
 		.attr("y", height + 20)
 		.style("font-size", 20)
-		.text("Max mean: set " + (trial.maxMean+1) + " \u00A0\u00A0\u00A0\u00A0 Max variance: set " + (trial.maxVariance+1) + " \u00A0\u00A0\u00A0\u00A0 Max single value: set " + (trial.maxValue+1) + " \u00A0\u00A0\u00A0\u00A0 Min single value: set " + (trial.minValue+1))
+		.text("Max mean: set " + (trial.maxMean+1) + " \u00A0\u00A0\u00A0\u00A0 Max variance: set " + (trial.maxVariance+1) + " \u00A0\u00A0\u00A0\u00A0 Max single value: set " + (trial.maxValueRequested+1) + " \u00A0\u00A0\u00A0\u00A0 Min single value: set " + (trial.minValueRequested+1))
 
 }

@@ -122,10 +122,11 @@ class Trial {
 		this.indexStair = -1; // trial indix only within its staircase
 		this.style = style;
 
+		// requested (but not guaranteed)
 		this.maxMean = Math.random() > 0.5;
 		this.maxVariance = Math.random() > 0.5;
-		this.maxValue = Math.random() > 0.5;
-		this.minValue = Math.random() > 0.5;
+		this.maxValueRequested = Math.random() > 0.5;
+		this.minValueRequested = Math.random() > 0.5;
 
 		this.presentationTime = debug ? 5000 : 2000;
 		this.response;
@@ -143,7 +144,7 @@ class Trial {
 			[this.barcount1, this.barcount2], 
 			[this.baseValue+this.meanDiff, this.baseValue], 
 			[this.variance1, this.variance2], 
-			this.maxMean, this.maxVariance, this.maxValue, this.minValue);
+			this.maxMean, this.maxVariance, this.maxValueRequested, this.minValueRequested);
 		this.values1 = sets[0].map( x => d3.round(x,2) );
 		this.values2 = sets[1].map( x => d3.round(x,2) );
 		this.verticalOffsets1 = this.values1.map(() => Math.floor(Math.random()*151));
