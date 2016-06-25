@@ -11,6 +11,7 @@ class Experiment {
 		this.userAgent = navigator.userAgent;
 		this.currentTrial = new Trial();
 		this.date = new Date().toISOString().slice(0, 10);
+		this.duration = performance.now();
 		this.trials = [];
 	}
 

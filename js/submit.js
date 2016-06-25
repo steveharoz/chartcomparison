@@ -15,6 +15,9 @@ function sendJSON(exp, callback) {
     delete exp.stairIndex;
     delete exp.currentTrial;
     
+	// compute duration
+	exp.duration = performance.now() - exp.duration;
+
     // get early accuracy estimate
     var accuracy = exp.trials.slice(0, 18).map( trial => trial.correct );
     accuracy = d3.sum(accuracy) / accuracy.length;
