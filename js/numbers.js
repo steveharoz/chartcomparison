@@ -90,9 +90,15 @@ function testMake2Sets() {
 	var total = 0;
 	var count = 1000;
 	var starttime = window.performance.now();
+	var maxIterations = 0;
+	var hiIterationCount = 0;
 	for (var i = 0; i < count; i++) {
-		total += make2Sets([6,6], [240,200], [120,90])[2];
+		var iterations = make2Sets([6,10], [220,200], [120,90])[2];
+		hiIterationCount += iterations > 1000;
+		maxIterations = Math.max(maxIterations, iterations);
+		total += iterations;
 	}
-	console.log('duration: ' + (window.performance.now() - starttime));
-	return 'avg iterations: ' + total / count;
+	console.log('avg duration: ' + Math.round((window.performance.now() - starttime) / count) + ' ms');
+	console.log('avg iterations: ' + total / count);
+	console.log('max iterations: ' + maxIterations);
 }

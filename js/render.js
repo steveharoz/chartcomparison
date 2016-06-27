@@ -5,10 +5,10 @@ var margin = {top: 5, right: 5, bottom: 35, left: 5},
 	height = 610 - margin.top - margin.bottom;
 
 var maxSetCount = 2;
-var maxBarCount = 6;
+var maxBarCount = 10;
 var xMargin = 0.05; // space at the edges of the x axis
-var xCenterSpace = 0.055; // space between sets
-var xSpaceBtwBars = 65/95; // proportion of bar width
+var xCenterSpace = 0.1; // space between sets
+var xSpaceBtwBars = 0.5; // proportion of bar width
 
 var svg;
 
@@ -99,14 +99,14 @@ function draw(trial) {
 					.attr("class", "bar " + styles[0])
 					.attr("cx", getXPosition(maxBarCount - v - 1, 0) + getBarWidth() / 2)
 					.attr("cy", height - trial.values1[v])
-					.attr("r", getBarWidth() / 4);
+					.attr("r", getBarWidth() / 2);
 			}
 			for (var v = 0; v < trial.values2.length; v++) {
 				svg.append("circle")
 					.attr("class", "bar " + styles[1])
 					.attr("cx", getXPosition(v, 1) + getBarWidth() / 2)
 					.attr("cy", height - trial.values2[v])
-					.attr("r", getBarWidth() / 4);
+					.attr("r", getBarWidth() / 2);
 			}
 			break;
 		case Styles.position_square:
