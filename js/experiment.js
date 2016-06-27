@@ -4,6 +4,8 @@
 
 class Experiment {
 	constructor() {
+		this.staircaseDownRule = 3;
+		this.staircaseReversalMax = debug ? 1 : 10;
 		this.staircases = [];
 		this.stairIndex = -1;
 		this.continueUntilAllStaircasesFinish = true; // continue generating trials for each staircase until all others have finished
@@ -17,14 +19,15 @@ class Experiment {
 	}
 
 	makeExperiment () {
-		var styles = debug ? [Styles.extent] : [Styles.position, Styles.extent, Styles.position_extent];
 		var counts = debug ? [[6,10]] : [[1,1], [2,2], [6,6], [6,10], [10,10]];
+		var styles = debug ? [Styles.position, Styles.extent] : [Styles.position, Styles.extent, Styles.position_extent];
 		for (var c in counts) {
 			for (var s in styles) {
-				var staircase = new ArrayStaircase([1,2,4,6,8,11,14,18,25,34,45,60]); 
-				staircase.trialMax = counts[c][0] == 1 ? 25 : 49;
-				staircase.trialMax /= debug ? 24 : 1;
-				staircase.trialMax = Math.floor(staircase.trialMax);
+				var staircase = new ExponentialStaircase(1.3);
+				staircase.downRule = this.staircaseDownRule;
+				// set the stopping rules
+				staircase.reversalMax = this.staircaseReversalMax;
+				staircase.trialMax = 100;
 				// randomize the count order
 				var thisCount = Math.random() > 0.5 ? counts[c] : counts[c].slice().reverse();
 				// set the staircase parameters
@@ -134,7 +137,7 @@ class Trial {
 		this.maxValueRequested = Math.random() > 0.5;
 		this.minValueRequested = Math.random() > 0.5;
 
-		this.presentationTime = debug ? 5000 : 2000;
+		this.presentationTime = debug ? 2000 : 2000;
 		this.response;
 		this.correct;
 		this.RT;
