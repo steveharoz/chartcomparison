@@ -2,7 +2,6 @@
 /// <reference path="main.js" />
 /// <reference path="experiment.js" />
 
-var STAIR_BASE = 1.3;
 var STAIR_MIN = 0;
 var STAIR_MAX = 200;
 
@@ -15,7 +14,7 @@ class Staircase {
 		this.levelMin = -Infinity; // only matters for carryOn == false
 		this.carryOn = true; // when level hits the min/max, carry on or truncate?
 		this.reversalMax = Infinity; // How man reversals until the staircase stops
-		this.trialMax = 48; // How man trials until the staircase stops
+		this.trialMax = Infinity; // How man trials until the staircase stops
 		// state variables:
 		this.directionHistory = [];
 		this.trials = []; // past trials

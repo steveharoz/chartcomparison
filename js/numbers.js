@@ -41,7 +41,7 @@ function makeSetMax(count1, mu1, sigma1, count2, mu2, sigma2, maxInSet2, minInSe
 
 	// keep trying?
 	var keepTrying = true;
-	var MaxTries = 99999; 
+	var MaxTries = 19999; 
 	if (count1 <= 2) 
 		MaxTries = 999;
 	// for big diffs either maxInCorrectSet or minInCorrectSet. Both for smaller diffs
