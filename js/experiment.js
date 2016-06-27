@@ -6,6 +6,7 @@ class Experiment {
 	constructor() {
 		this.staircases = [];
 		this.stairIndex = -1;
+		this.continueUntilAllStaircasesFinish = true; // continue generating trials for each staircase until all others have finished
 		this.subjectID = (debug ? "DEBUG" : "") + Math.floor(Math.random() * 100000);
 		this.screenResolution = '' + screen.availWidth + 'x' + screen.availHeight;
 		this.userAgent = navigator.userAgent;
@@ -50,7 +51,8 @@ class Experiment {
 		// go to next staircase
 		this.stairIndex++;
 
-		// if staircase is complete, go to the next one
+		// if staircase is complete, go to the next one (but only if setting allow it)
+		if (!this.continueUntilAllStaircasesFinish)
 		while(this.stairIndex < this.staircases.length && this.getCurrentStaircase().isComplete())
 			this.stairIndex++;
 
