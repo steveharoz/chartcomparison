@@ -17,18 +17,21 @@ class Experiment {
 	}
 
 	makeExperiment () {
-		var counts = debug ? [[6,6]] : [[1,1], [2,2], [6,6]];
 		var styles = debug ? [Styles.extent] : [Styles.position, Styles.extent, Styles.position_extent];
+		var counts = debug ? [[6,10]] : [[1,1], [2,2], [6,6], [6,10], [10,10]];
 		for (var c in counts) {
 			for (var s in styles) {
 				var staircase = new ArrayStaircase([1,2,4,6,8,11,14,18,25,34,45,60]); 
 				staircase.trialMax = counts[c][0] == 1 ? 25 : 49;
 				staircase.trialMax /= debug ? 24 : 1;
 				staircase.trialMax = Math.floor(staircase.trialMax);
+				// randomize the count order
+				var thisCount = Math.random() > 0.5 ? counts[c] : counts[c].slice().reverse();
+				// set the staircase parameters
 				this.staircases.push( {
 					staircase: staircase, 
-					count1:counts[c][0], 
-					count2:counts[c][1], 
+					count1:thisCount[0], 
+					count2:thisCount[1], 
 					style: styles[s]
 				});
 			}
@@ -53,16 +56,16 @@ class Experiment {
 
 		// if staircase is complete, go to the next one (but only if setting allow it)
 		if (!this.continueUntilAllStaircasesFinish)
-		while(this.stairIndex < this.staircases.length && this.getCurrentStaircase().isComplete())
-			this.stairIndex++;
+			while(this.stairIndex < this.staircases.length && this.getCurrentStaircase().isComplete())
+				this.stairIndex++;
 
 		// if finished with this round, restart and shuffle
 		if (this.stairIndex >= this.staircases.length) {
 			this.stairIndex = 0;
 			d3.shuffle(this.staircases);
-		// if staircase is complete, go to the next one
-		while(this.stairIndex < this.staircases.length && this.getCurrentStaircase().isComplete())
-			this.stairIndex++;
+			// if staircase is complete, go to the next one
+			while(this.stairIndex < this.staircases.length && this.getCurrentStaircase().isComplete())
+				this.stairIndex++;
 		}
 		
 		// if all done, finished
