@@ -28,13 +28,11 @@ class Experiment {
 				// set the stopping rules
 				staircase.reversalMax = this.staircaseReversalMax;
 				staircase.trialMax = 100;
-				// randomize the count order
-				var thisCount = Math.random() > 0.5 ? counts[c] : counts[c].slice().reverse();
 				// set the staircase parameters
 				this.staircases.push( {
 					staircase: staircase, 
-					count1:thisCount[0], 
-					count2:thisCount[1], 
+					count1:counts[c][0], 
+					count2:counts[c][1], 
 					style: styles[s]
 				});
 			}
@@ -116,6 +114,13 @@ class Experiment {
 
 class Trial {
 	constructor(count1=6, count2=6, diff=90, style=Styles.position) {
+		// randomize the count order
+		if (Math.random() > 0.5) {
+			var temp = count1;
+			count1 = count2;
+			count2 = temp;
+		}
+
 		this.barcount1 = count1;
 		this.barcount2 = count2;
 		this.baseValue = 200 + Math.round(Math.random() * 100);
