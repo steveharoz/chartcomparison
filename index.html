@@ -161,13 +161,153 @@
             <p>&nbsp;</p>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
-            <button type="button" class="btn btn-lg btn-default" onclick="$('.intro').hide().promise().done(function(){$('.intro11').show();});">I understand.</button>
+            <button type="button" class="btn btn-lg btn-default" onclick="$('.intro').hide().promise().done(function(){$('.introFinal').show();});">I understand.</button>
         </div>
         <div class="col-sm-5 col-xs-12">
             <img class="introImage" src="images/dot_1.png" />
         </div>
     </div>
-    <div class="row intro intro11">
+
+
+    <div id="instructions6_10" class="row intro intro6_10 intro1">
+        <div class="col-sm-10 col-sm-offset-1 col-xs-12">
+            <h1 class="studytitle">Graph Comparison</h1>
+            <p>You will see several types of graphs.<p>
+            <p>Each indicates how long cars on a team took to finish a race.</p>
+            <p>There are 6 or 10 cars for each team.</p>
+            <p>Your task is to indicate which team <strong>on average</strong> took longer.</p>
+            <p>The experiment will take about 30 minutes.</p>
+            <button id="start" type="button" class="btn btn-lg btn-default" onclick="$('.intro').hide().promise().done(function(){if (debug) Statemachine.goToNextState(); else $('.intro6_10.intro2').show();});">I understand.</button>
+        </div>
+    </div>
+    <div class="row intro intro6_10 intro2">
+        <div class="col-sm-5 col-sm-offset-1 col-xs-12">
+            <h1 class="studytitle">Graph Comparison</h1>
+            <p>Some of the graphs will be bar graphs.</p>
+            <p>Red bars represent the time that cars on Red team took to finish the race.</p>
+            <p>And blue bars represent the Blue team.</P>
+            <p>Here, the <strong>Blue team</strong> took longest on average.</p>
+            <p>&nbsp;</p>
+            <button type="button" class="btn btn-lg btn-default" onclick="$('.intro').hide().promise().done(function(){$('.intro6_10.intro3').show();});">I understand.</button>
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            <img class="introImage" src="images/bar_6.png" />
+        </div>
+    </div>
+    <div class="row intro intro6_10 intro3">
+        <div class="col-sm-5 col-sm-offset-1 col-xs-12">
+            <h1 class="studytitle">Graph Comparison</h1>
+            <p>Some graphs will be "floating" bar graphs.</p>
+            <p>The <strong>length</strong> still represents the time each car took.</p>
+            <p>The floating position doesn't matter.</p>
+            <p>Here, the <strong>Red team</strong> took longest on average.</p>
+            <p>&nbsp;</p>
+            <button type="button" class="btn btn-lg btn-default" onclick="$('.intro').hide().promise().done(function(){$('.intro6_10.intro4').show();});">I understand.</button>
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            <img class="introImage" src="images/float_6.png" />
+        </div>
+    </div>
+    <div class="row intro intro6_10 intro4">
+        <div class="col-sm-5 col-sm-offset-1 col-xs-12">
+            <h1 class="studytitle">Graph Comparison</h1>
+            <p>Some graphs will be dot graphs.</p>
+            <p>The <strong>heights</strong> of the dots represents the time each car took.</p>
+            <p>Here, the <strong>Red team</strong> took longest on average.</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <button type="button" class="btn btn-lg btn-default" onclick="$('.intro').hide().promise().done(function(){$('.intro6_10.intro5').show();});">I understand.</button>
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            <img class="introImage" src="images/dot_6.png" />
+        </div>
+    </div>
+    <div class="row intro intro6_10 intro5">
+        <div class="col-sm-5 col-sm-offset-1 col-xs-12">
+            <h1 class="studytitle">Graph Comparison</h1>
+            <p>Some graphs have 2 cars per team.</p>
+            <p>Here, the <strong>Red team</strong> took longest on average.</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <button type="button" class="btn btn-lg btn-default" onclick="$('.intro').hide().promise().done(function(){$('.intro6_10.intro6').show();});">I understand.</button>
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            <img class="introImage" src="images/bar_2.png" />
+        </div>
+    </div>
+    <div class="row intro intro6_10 intro6">
+        <div class="col-sm-5 col-sm-offset-1 col-xs-12">
+            <h1 class="studytitle">Graph Comparison</h1>
+            <p>Some graphs have 2 cars per team.</p>
+            <p>Here, the <strong>Red team</strong> took longest on average.</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <button type="button" class="btn btn-lg btn-default" onclick="$('.intro').hide().promise().done(function(){$('.intro6_10.intro7').show();});">I understand.</button>
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            <img class="introImage" src="images/float_2.png" />
+        </div>
+    </div>
+    <div class="row intro intro6_10 intro7">
+        <div class="col-sm-5 col-sm-offset-1 col-xs-12">
+            <h1 class="studytitle">Graph Comparison</h1>
+            <p>Some graphs have 2 cars per team.</p>
+            <p>Here, the <strong>Red team</strong> took longest on average.</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <button type="button" class="btn btn-lg btn-default" onclick="$('.intro').hide().promise().done(function(){$('.intro6_10.intro8').show();});">I understand.</button>
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            <img class="introImage" src="images/dot_2.png" />
+        </div>
+    </div>
+    <div class="row intro intro6_10 intro8">
+        <div class="col-sm-5 col-sm-offset-1 col-xs-12">
+            <h1 class="studytitle">Graph Comparison</h1>
+            <p>Other graphs have only 1 car per team.</p>
+            <p>Here, the <strong>Red team</strong> took longest on average.</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <button type="button" class="btn btn-lg btn-default" onclick="$('.intro').hide().promise().done(function(){$('.intro6_10.intro9').show();});">I understand.</button>
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            <img class="introImage" src="images/bar_1.png" />
+        </div>
+    </div>
+    <div class="row intro intro6_10 intro9">
+        <div class="col-sm-5 col-sm-offset-1 col-xs-12">
+            <h1 class="studytitle">Graph Comparison</h1>
+            <p>Other graphs have only 1 car per team.</p>
+            <p>Here, the <strong>Red team</strong> took longest on average.</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <button type="button" class="btn btn-lg btn-default" onclick="$('.intro').hide().promise().done(function(){$('.intro6_10.intro10').show();});">I understand.</button>
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            <img class="introImage" src="images/float_1.png" />
+        </div>
+    </div>
+    <div class="row intro intro6_10 intro10">
+        <div class="col-sm-5 col-sm-offset-1 col-xs-12">
+            <h1 class="studytitle">Graph Comparison</h1>
+            <p>Other graphs have only 1 car per team.</p>
+            <p>Here, the <strong>Red team</strong> took longest on average.</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <button type="button" class="btn btn-lg btn-default" onclick="$('.intro').hide().promise().done(function(){$('.introFinal').show();});">I understand.</button>
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            <img class="introImage" src="images/dot_1.png" />
+        </div>
+    </div>
+
+    <div class="row intro intro6_10 introFinal">
         <div class="col-sm-10 col-sm-offset-1 col-xs-12">
             <h1 class="studytitle">Graph Comparison</h1>
             <p>Laptop/Desktop: Use the left or right arrow keys on your <strong>keyboard</strong> to answer.</p>
