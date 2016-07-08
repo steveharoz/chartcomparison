@@ -16,7 +16,7 @@ var Styles = {
 
 
 // show instructions
-$('#instructions').show(0);
+$('#instructions6_10').show(0);
 var experiment = new Experiment();
 experiment.makeExperiment();
 
