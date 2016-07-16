@@ -25,6 +25,7 @@ class Experiment {
 			for (var s in styles) {
 				var staircase = new ArrayStaircase([1,2,4,6,8,11,14,18,25,34,45,60]);
 				staircase.downRule = this.staircaseDownRule;
+				staircase.carryOn = true;
 				// set the stopping rules
 				staircase.reversalMax = this.staircaseReversalMax;
 				staircase.trialMax = 49;
