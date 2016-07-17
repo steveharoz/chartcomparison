@@ -89,10 +89,14 @@ class Experiment {
 		trial.index = this.trials.length;
 		trial.indexStair = this.getCurrentStaircase().trials.length;
 		// whether to show feedback after response
-		var roundsOfFeedback = 1;
+		var roundsOfFeedback = 2;
 		trial.feedback = trial.indexStair < roundsOfFeedback;
-		if (trial.indexStair < roundsOfFeedback)
+		if (trial.indexStair < roundsOfFeedback) {
 			trial.presentationTime = 60 * 60 * 1000;
+			trial.maxValueRequested = 1 - trial.maxMean;
+			trial.minValueRequested = trial.maxMean;
+			trial.makeSets();
+		}
 		// add trial to staircase and experiment history
 		this.trials.push(trial);
 		this.getCurrentStaircase().trials.push(trial);
