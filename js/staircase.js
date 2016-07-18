@@ -9,7 +9,7 @@ class Staircase {
 	constructor() {
 		// staircase properties:
 		this.upRule = 1;
-		this.downRule = 1;
+		this.downRule = 3;
 		this.levelMax = Infinity; // only matters for carryOn == false
 		this.levelMin = -Infinity; // only matters for carryOn == false
 		this.carryOn = true; // when level hits the min/max, carry on or truncate?
