@@ -4,7 +4,7 @@
 
 class Experiment {
 	constructor() {
-		this.staircaseDownRule = 1;
+		this.staircaseDownRule = 3;
 		this.staircaseReversalMax = Infinity;
 		this.staircases = [];
 		this.stairIndex = -1;
@@ -20,7 +20,7 @@ class Experiment {
 
 	makeExperiment () {
 		var counts = debug ? [[6,10]] : [[6,6], [6,10], [10,10]];
-		var styles = debug ? [Styles.position, Styles.extent] : [Styles.position, Styles.extent, Styles.position_extent];
+		var styles = debug ? [Styles.extent] : [Styles.position, Styles.extent, Styles.position_extent];
 		for (var c in counts) {
 			for (var s in styles) {
 				var staircase = new ArrayStaircase([1,2,4,6,8,11,14,18,25,34,45,60]);
@@ -28,7 +28,7 @@ class Experiment {
 				staircase.carryOn = true;
 				// set the stopping rules
 				staircase.reversalMax = this.staircaseReversalMax;
-				staircase.trialMax = 49;
+				staircase.trialMax = 50;
 				// set the staircase parameters
 				this.staircases.push( {
 					staircase: staircase, 
