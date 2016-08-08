@@ -85,6 +85,7 @@ class Experiment {
 			stairparams.count2,
 			stairValue,
 			stairparams.style);
+		trial.stairLevel = this.getCurrentStaircase().level;
 		// set trial indices
 		trial.index = this.trials.length;
 		trial.indexStair = this.getCurrentStaircase().trials.length;
@@ -139,6 +140,7 @@ class Trial {
 		this.verticalOffsets2 = [];
 		this.index = -1; // global trial index
 		this.indexStair = -1; // trial indix only within its staircase
+		this.stairLevel = 0;
 		this.style = style;
 
 		// requested (but not guaranteed)

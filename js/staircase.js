@@ -107,11 +107,12 @@ class ArrayStaircase extends Staircase {
 	// convert the level of the staircase to a value
 	stairLevel2Value() {
 		console.log('value index: ' + this.level);
-		// not necessary with carryOn == false, but a good safety check
 		var level = this.level; 
+		// check that level is within bounds of the array
+		// allow negative levels but limit value to 0
 		if (this.carryOn) 
-			level = Math.min(Math.max(0, this.level), this.values.length-1); 
-		var value = this.values[level]
+			level = Math.min(this.level, this.values.length-1); 
+		var value = level < 0 ? 0 : this.values[level];
 		console.log('value: ' + value);
 		return value;
 	};
