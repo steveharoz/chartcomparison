@@ -2,12 +2,17 @@
 /// <reference path="main.js" />
 /// <reference path="staircase.js" />
 
+var BLOCK_SIZE = 16;
+var ROUNDS_OF_FEEDBACK = 3;
+
+
 class Experiment {
 	constructor() {
 		this.staircaseDownRule = 3;
 		this.staircaseReversalMax = Infinity;
 		this.staircases = [];
 		this.stairIndex = -1;
+		this.trialInBlockIndex = BLOCK_SIZE;
 		this.continueUntilAllStaircasesFinish = true; // continue generating trials for each staircase until all others have finished
 		this.subjectID = (debug ? "DEBUG" : "") + Math.floor(Math.random() * 100000);
 		this.screenResolution = '' + screen.availWidth + 'x' + screen.availHeight;
@@ -28,7 +33,7 @@ class Experiment {
 				staircase.carryOn = true;
 				// set the stopping rules
 				staircase.reversalMax = this.staircaseReversalMax;
-				staircase.trialMax = 50;
+				staircase.trialMax = 32;
 				// set the staircase parameters
 				this.staircases.push( {
 					staircase: staircase, 
@@ -50,11 +55,19 @@ class Experiment {
 	isFinished() {
 		return this.staircases.every(function(s) {return s.staircase.isComplete();});
 	}
+	
+	// figure whether to stay in staircase
+	determineStairCase() {
+		// go to next trial in block
+		this.trialInBlockIndex++;
+		// if current block and staircase isn't finished, stay in this staircase
+		if (this.trialInBlockIndex < BLOCK_SIZE && !this.getCurrentStaircase().isComplete())
+			return;
 
-	// get the next trial
-	nextTrial() {
 		// go to next staircase
 		this.stairIndex++;
+		// restart block index
+		this.trialInBlockIndex = 0;
 
 		// if staircase is complete, go to the next one (but only if setting allow it)
 		if (!this.continueUntilAllStaircasesFinish)
@@ -69,6 +82,12 @@ class Experiment {
 			while(this.stairIndex < this.staircases.length && this.getCurrentStaircase().isComplete())
 				this.stairIndex++;
 		}
+	}
+
+	// get the next trial
+	nextTrial() {
+		// determine staircase
+		this.determineStairCase();
 		
 		// if all done, finished
 		if (this.isFinished()) {
@@ -90,9 +109,8 @@ class Experiment {
 		trial.index = this.trials.length;
 		trial.indexStair = this.getCurrentStaircase().trials.length;
 		// whether to show feedback after response
-		var roundsOfFeedback = 2;
-		trial.feedback = trial.indexStair < roundsOfFeedback || alwaysFeedback;
-		if (trial.indexStair < roundsOfFeedback) {
+		trial.feedback = trial.indexStair < ROUNDS_OF_FEEDBACK || alwaysFeedback;
+		if (trial.indexStair < ROUNDS_OF_FEEDBACK) {
 			trial.presentationTime = 60 * 60 * 1000;
 			trial.maxValueRequested = 1 - trial.maxMean;
 			trial.minValueRequested = trial.maxMean;

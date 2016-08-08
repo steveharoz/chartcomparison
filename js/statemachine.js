@@ -2,7 +2,7 @@
 /// <reference path="experiment.js" />
 
 var ISI = 500;
-var PRESS_KEY_EVERY_N_TRIALS = 18;
+var PRESS_KEY_EVERY_N_TRIALS = 16;
 
 var States = {
 	instructions: 'instructions',
