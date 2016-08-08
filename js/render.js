@@ -190,12 +190,19 @@ function drawFixation() {
 function drawPressToContinue() {
 	var pressToContinue = svg.append("text")
 		.attr("id", "pressToContinue")
-		.text("Press left or right for the next round")
 		.attr("x", "50%")
 		.attr("y", "50%")
 		.attr("text-anchor", "middle")
 		.attr("dy", "-.5em")
 		.attr("font-size", 30);
+	pressToContinue.append("tspan")
+		.attr("id", "percentComplete")
+		.attr("x", "50%")
+		.text();
+	pressToContinue.append("tspan")
+		.attr("x", "50%")
+		.attr("dy", "1.4em")
+		.text("Press left or right for the next round");
 	$('#pressToContinue').hide(0);
 }
 

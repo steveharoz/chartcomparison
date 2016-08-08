@@ -2,7 +2,7 @@
 /// <reference path="experiment.js" />
 
 var ISI = 500;
-var PRESS_KEY_EVERY_N_TRIALS = 20;
+var PRESS_KEY_EVERY_N_TRIALS = 18;
 
 var States = {
 	instructions: 'instructions',
@@ -122,6 +122,8 @@ var Statemachine = new function () {
 					Statemachine.goToNextState();
 					return;
 				}
+				// percent complete
+				$('#percentComplete').text(Math.round(experiment.trials.length/experiment.staircases.length/50*100) + '% complete'); 
 				// press a key to start trial
 				$('#pressToContinue').show();
 				$('#response').show();
