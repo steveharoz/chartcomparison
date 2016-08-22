@@ -3,7 +3,7 @@
 /// <reference path="experiment.js" />
 
 var STAIR_MIN = 0;
-var STAIR_MAX = 200;
+var STAIR_MAX = 75;
 
 class Staircase {
 	constructor() {
@@ -153,6 +153,7 @@ class RatioStaircase extends Staircase {
 	// convert the level of the staircase to a value
 	stairLevel2Value() {
 		var value = this.level * this.startValue;
+		value = Math.min(Math.max(STAIR_MIN, value), STAIR_MAX);
 		console.log(value);
 		return value;
 	};
