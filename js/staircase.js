@@ -55,7 +55,7 @@ class Staircase {
 			this.updateValue(+1);
 	};
 
-	// (private) update level, state, reversals
+	// (protected) update level, state, reversals
 	updateValue(diff) {
 		// reset step's internal state (matters when the up/down rules > 1)
 		this._corrects = 0;
@@ -114,6 +114,46 @@ class ArrayStaircase extends Staircase {
 			level = Math.min(this.level, this.values.length-1); 
 		var value = level < 0 ? 0 : this.values[level];
 		console.log('value: ' + value);
+		return value;
+	};
+}
+
+// A non-fixed staircase, where the step up and step down are independant
+class RatioStaircase extends Staircase {
+	constructor(startValue = 60, downRatio = 0.75, upRatio = 1+(4913/42848)) {
+		// call base class's constructor
+		super();
+		this.level = 1; // the current stair level
+		// variables specific to this class
+		this.startValue = startValue;
+		this.downRatio = downRatio;
+		this.upRatio = upRatio;
+	}
+
+	// (protected) update level, state, reversals
+	updateValue(diff) {
+		// reset step's internal state (matters when the up/down rules > 1)
+		this._corrects = 0;
+		this._incorrects = 0;
+		// move the level up or down
+		var multiplier = 1;
+		if (diff > 0) multiplier = this.upRatio;
+		if (diff < 0) multiplier = this.downRatio;
+		this.level *= multiplier;
+		// constrain level to bounds
+		if (!this.carryOn)
+			this.level = Math.min(Math.max(this.levelMin, this.level), this.levelMax);
+		// check reversal
+		if (diff == -this._previousDirection)
+			this._reversalCount++;
+		this._previousDirection = diff;
+		this.directionHistory.push(diff);
+	};
+	
+	// convert the level of the staircase to a value
+	stairLevel2Value() {
+		var value = this.level * this.startValue;
+		console.log(value);
 		return value;
 	};
 }
