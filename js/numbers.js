@@ -37,7 +37,7 @@ function makeSetMax(count1, mu1, sigma1, count2, mu2, sigma2, maxInSet2, minInSe
 	var isMaxInSet2;
 	var maxInCorrectSet = false;
 	var minInCorrectSet = false;
-	var bigDiff = Math.abs(mu1-mu2) > 40.1; // when diff is large, simplify criteria
+	var bigDiff = Math.abs(mu1-mu2) > 45.1; // when diff is large, simplify criteria
 
 	// keep trying?
 	var keepTrying = true;
