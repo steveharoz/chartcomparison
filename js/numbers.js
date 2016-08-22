@@ -65,7 +65,7 @@ function makeSetMax(count1, mu1, sigma1, count2, mu2, sigma2, maxInSet2, minInSe
 			keepTrying = !(maxInCorrectSet || minInCorrectSet);
 
 	}
-	if (i > 9999)
+	if (i > 4999)
 		console.log('reps:' + i);
 	return [set1, set2, i];
 }
