@@ -14,6 +14,7 @@ function sendJSON(exp, callback) {
     delete exp.staircases;
     delete exp.stairIndex;
     delete exp.currentTrial;
+	delete exp.trialInBlockIndex
     
 	// compute duration
 	exp.duration = performance.now() - exp.duration;

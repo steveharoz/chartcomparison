@@ -123,7 +123,7 @@ var Statemachine = new function () {
 					return;
 				}
 				// percent complete
-				$('#percentComplete').text(Math.round(experiment.trials.length/experiment.staircases.length/50*100) + '% complete'); 
+				$('#percentComplete').text(Math.round(experiment.trials.length/experiment.staircases.length/experiment.staircases[0].staircase.trialMax*100) + '% complete'); 
 				// press a key to start trial
 				$('#pressToContinue').show();
 				$('#response').show();

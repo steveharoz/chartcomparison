@@ -33,7 +33,7 @@ class Experiment {
 				staircase.carryOn = true;
 				// set the stopping rules
 				staircase.reversalMax = this.staircaseReversalMax;
-				staircase.trialMax = 32;
+				staircase.trialMax = 48;
 				// set the staircase parameters
 				this.staircases.push( {
 					staircase: staircase, 
