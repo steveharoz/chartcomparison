@@ -37,7 +37,7 @@ function makeSetMax(count1, mu1, sigma1, count2, mu2, sigma2, maxInSet2, minInSe
 	var isMaxInSet2;
 	var maxInCorrectSet = false;
 	var minInCorrectSet = false;
-	var bigDiff = Math.abs(mu1-mu2) > 45.1; // when diff is large, simplify criteria
+	var bigDiff = Math.abs(mu1-mu2) > 60.1; // when diff is large, simplify criteria
 
 	// keep trying?
 	var keepTrying = true;
@@ -60,12 +60,12 @@ function makeSetMax(count1, mu1, sigma1, count2, mu2, sigma2, maxInSet2, minInSe
 		minInCorrectSet = isMinInSet2 == minInSet2;
 
 		// keep trying?
-		keepTrying = bigDiff ? 
-			!(maxInCorrectSet || minInCorrectSet) : 
-			!(maxInCorrectSet && minInCorrectSet);
+		keepTrying = !(maxInCorrectSet && minInCorrectSet) 
+		if (MaxTries > 9999 && bigDiff) 
+			keepTrying = !(maxInCorrectSet || minInCorrectSet);
 
 	}
-	if (i > 10000)
+	if (i > 9999)
 		console.log('reps:' + i);
 	return [set1, set2, i];
 }
