@@ -3,7 +3,7 @@
 /// <reference path="staircase.js" />
 
 var BLOCK_SIZE = 16;
-var ROUNDS_OF_FEEDBACK = 3;
+var ROUNDS_OF_FEEDBACK = 8;
 
 
 class Experiment {
