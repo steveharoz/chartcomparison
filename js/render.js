@@ -61,6 +61,7 @@ function draw(trial) {
 			for (var v = 0; v < trial.values1.length; v++) {
 				svg.append("rect")
 					.attr("class", "bar " + styles[0])
+					.classed("outline", OUTLINE_MODE)
 					.attr("x", getXPosition(maxBarCount - v - 1, 0))
 					.attr("width", getBarWidth())
 					.attr("y", height - trial.values1[v])
@@ -69,16 +70,36 @@ function draw(trial) {
 			for (var v = 0; v < trial.values2.length; v++) {
 				svg.append("rect")
 					.attr("class", "bar " + styles[1])
+					.classed("outline", OUTLINE_MODE)
 					.attr("x", getXPosition(v, 1))
 					.attr("width", getBarWidth())
 					.attr("y", height - trial.values2[v])
 					.attr("height", trial.values2[v]);
 			}
 			break;
+		case Styles.position_extent_line:
+			for (var v = 0; v < trial.values1.length; v++) {
+				svg.append("line")
+					.attr("class", "bar " + styles[0])
+					.attr("x1", getXPosition(maxBarCount - v - 1, 0))
+					.attr("x2", getXPosition(maxBarCount - v - 1, 0))
+					.attr("y1", height - trial.values1[v])
+					.attr("y2", height);
+			}
+			for (var v = 0; v < trial.values2.length; v++) {
+				svg.append("line")
+					.attr("class", "bar " + styles[1])
+					.attr("x1", getXPosition(v, 1))
+					.attr("x2", getXPosition(v, 1))
+					.attr("y1", height - trial.values2[v])
+					.attr("y2", height);
+			}
+			break;
 		case Styles.extent:
 			for (var v = 0; v < trial.values1.length; v++) {
 				svg.append("rect")
 					.attr("class", "bar " + styles[0])
+					.classed("outline", OUTLINE_MODE)
 					.attr("x", getXPosition(maxBarCount - v - 1, 0))
 					.attr("width", getBarWidth())
 					.attr("y", height - trial.values1[v] - trial.verticalOffsets1[v])
@@ -87,6 +108,7 @@ function draw(trial) {
 			for (var v = 0; v < trial.values2.length; v++) {
 				svg.append("rect")
 					.attr("class", "bar " + styles[1])
+					.classed("outline", OUTLINE_MODE)
 					.attr("x", getXPosition(v, 1))
 					.attr("width", getBarWidth())
 					.attr("y", height - trial.values2[v] - trial.verticalOffsets2[v])
@@ -97,6 +119,7 @@ function draw(trial) {
 			for (var v = 0; v < trial.values1.length; v++) {
 				svg.append("circle")
 					.attr("class", "bar " + styles[0])
+					.classed("outline", OUTLINE_MODE)
 					.attr("cx", getXPosition(maxBarCount - v - 1, 0) + getBarWidth() / 2)
 					.attr("cy", height - trial.values1[v])
 					.attr("r", getBarWidth() / 2);
@@ -104,27 +127,10 @@ function draw(trial) {
 			for (var v = 0; v < trial.values2.length; v++) {
 				svg.append("circle")
 					.attr("class", "bar " + styles[1])
+					.classed("outline", OUTLINE_MODE)
 					.attr("cx", getXPosition(v, 1) + getBarWidth() / 2)
 					.attr("cy", height - trial.values2[v])
 					.attr("r", getBarWidth() / 2);
-			}
-			break;
-		case Styles.position_square:
-			for (var v = 0; v < trial.values1.length; v++) {
-				svg.append("rect")
-					.attr("class", "bar " + styles[0])
-					.attr("x", getXPosition(maxBarCount - v - 1, 0))
-					.attr("width", getBarWidth())
-					.attr("y", height - trial.values1[v])
-					.attr("height", getBarWidth());
-			}
-			for (var v = 0; v < trial.values2.length; v++) {
-				svg.append("rect")
-					.attr("class", "bar " + styles[1])
-					.attr("x", getXPosition(v, 1))
-					.attr("width", getBarWidth())
-					.attr("y", height - trial.values2[v])
-					.attr("height", getBarWidth());
 			}
 			break;
 		default:

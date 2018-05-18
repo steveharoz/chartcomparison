@@ -15,12 +15,17 @@
 text.cheat {stroke: none;}
 svg:hover .cheat, svg:hover .guides line {visibility: visible;}
 
-.bar1 {
-  fill: rgb(228, 26, 28);
+.bar1 { fill: rgb(228, 26, 28); }
+.bar2 { fill: rgb(55, 126, 184); }
+
+.outline.bar1,
+.outline.bar2 { 
+  fill: white; 
+  stroke-width: 1px;
 }
-.bar2 {
-  fill: rgb(55, 126, 184);
-}
+.outline.bar1 { stroke: rgb(228, 26, 28); }
+.outline.bar2 { stroke: rgb(55, 126, 184); }
+circle.outline.bar1, circle.outline.bar2 { stroke-width: 2px; }
 
 .axis path, .axis line {
   stroke-width: 3px;
