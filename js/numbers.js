@@ -14,7 +14,7 @@ function makeBoundSet(count, mu, sigma, min, max) {
 	mu = mu ? mu : 200;
 	sigma = sigma ? sigma : 120;
 	min = min ? min : 20;
-	max = max ? max : height;
+	max = max ? max : height - VERTICAL_OFFSET_MAX; // account for floating bars
 
 	// special case for set size 1
 	if (count <= 1)
@@ -43,7 +43,7 @@ function makeSetMax(count1, mu1, sigma1, count2, mu2, sigma2, maxInSet2, minInSe
 	var keepTrying = true;
 	var MaxTries = 19999; 
 	if (count1 <= 2) 
-		MaxTries = 1999;
+		MaxTries = 999;
 	// for big diffs either maxInCorrectSet or minInCorrectSet. Both for smaller diffs
 	for (var i = 0; keepTrying && i < MaxTries; i++) {
 		set1 = makeBoundSet(count1, mu1, sigma1);

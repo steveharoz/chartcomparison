@@ -89,7 +89,10 @@ var Statemachine = new function () {
 				// hide stimulus
 				d3.selectAll('.bar')
 					.style("opacity", 0);
-				// TODO: reset feedback and hide
+				// reset feedback
+				$('#feedback0, #feedback1').text('');
+				$('#feedbackSlow').css('visibility', 'hidden');
+				$('#feedback').hide(0);
 				break;
 			default:
 		}

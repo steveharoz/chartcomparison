@@ -2,8 +2,11 @@
 /// <reference path="main.js" />
 /// <reference path="staircase.js" />
 
+"use strict";
+
 var BLOCK_SIZE = 16;
 var ROUNDS_OF_FEEDBACK = 16;
+var VERTICAL_OFFSET_MAX = 100;
 
 
 class Experiment {
@@ -33,7 +36,7 @@ class Experiment {
 				staircase.carryOn = true;
 				// set the stopping rules
 				staircase.reversalMax = this.staircaseReversalMax;
-				staircase.trialMax = 48;
+				staircase.trialMax = debug ? 16 : 48;
 				// set the staircase parameters
 				this.staircases.push( {
 					staircase: staircase, 
@@ -186,8 +189,8 @@ class Trial {
 			this.maxMean, this.maxVariance, this.maxValueRequested, this.minValueRequested);
 		this.values1 = sets[0].map( x => d3.round(x,2) );
 		this.values2 = sets[1].map( x => d3.round(x,2) );
-		this.verticalOffsets1 = this.values1.map(() => Math.floor(Math.random()*151));
-		this.verticalOffsets2 = this.values2.map(() => Math.floor(Math.random()*151));
+		this.verticalOffsets1 = this.values1.map(() => Math.floor(Math.random()*VERTICAL_OFFSET_MAX));
+		this.verticalOffsets2 = this.values2.map(() => Math.floor(Math.random()*VERTICAL_OFFSET_MAX));
 	}
 
 	// record an answer
