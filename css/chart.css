@@ -23,8 +23,9 @@ svg:hover .cheat, svg:hover .guides line {visibility: visible;}
   fill: white; 
   stroke-width: 1px;
 }
-.outline.bar1 { stroke: rgb(228, 26, 28); }
-.outline.bar2 { stroke: rgb(55, 126, 184); }
+line.bar1, .outline.bar1 { stroke: rgb(228, 26, 28); }
+line.bar2, .outline.bar2 { stroke: rgb(55, 126, 184); }
+line.bar1, line.bar2,
 circle.outline.bar1, circle.outline.bar2 { stroke-width: 2px; }
 
 .axis path, .axis line {

@@ -7,12 +7,14 @@
 var debug = window.location.href.toLowerCase().indexOf("debug") >= 0;
 var alwaysFeedback = window.location.href.toLowerCase().indexOf("feedback") >= 0;
 var OUTLINE_MODE = window.location.href.toLowerCase().indexOf("outline") >= 0;
+var LINES_MODE = window.location.href.toLowerCase().indexOf("lines") >= 0;
 
 
 var Styles = {
 	position:        'position',
 	extent:			 'extent',
 	position_extent: 'position + extent',
+	extent_line: 'extent (line)',
 	position_extent_line: 'position + extent (line)',
 	position_square: 'position square'
 }

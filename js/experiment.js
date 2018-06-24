@@ -28,7 +28,7 @@ class Experiment {
 
 	makeExperiment () {
 		var counts = debug ? [[6,10]] : [[1,1], [2,2], [6,6], [6,10], [10,10]];
-		var styles = debug ? [Styles.position, Styles.extent, Styles.position_extent] : [Styles.position, Styles.extent, Styles.position_extent];
+		var styles = LINES_MODE ? [Styles.position, Styles.extent_line, Styles.position_extent_line] : [Styles.position, Styles.extent, Styles.position_extent];
 		for (var c in counts) {
 			for (var s in styles) {
 				var staircase = new RatioStaircase();

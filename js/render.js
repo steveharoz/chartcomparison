@@ -115,6 +115,24 @@ function draw(trial) {
 					.attr("height", trial.values2[v]);
 			}
 			break;
+		case Styles.extent_line:
+			for (var v = 0; v < trial.values1.length; v++) {
+				svg.append("line")
+					.attr("class", "bar " + styles[0])
+					.attr("x1", getXPosition(maxBarCount - v - 1, 0))
+					.attr("x2", getXPosition(maxBarCount - v - 1, 0))
+					.attr("y1", height - trial.values1[v] - trial.verticalOffsets1[v])
+					.attr("y2", height - trial.verticalOffsets1[v]);
+			}
+			for (var v = 0; v < trial.values2.length; v++) {
+				svg.append("line")
+					.attr("class", "bar " + styles[1])
+					.attr("x1", getXPosition(v, 1))
+					.attr("x2", getXPosition(v, 1))
+					.attr("y1", height - trial.values2[v] - trial.verticalOffsets2[v])
+					.attr("y2", height - trial.verticalOffsets2[v]);
+			}
+			break;
 		case Styles.position:
 			for (var v = 0; v < trial.values1.length; v++) {
 				svg.append("circle")
